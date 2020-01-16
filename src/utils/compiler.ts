@@ -7,12 +7,13 @@ import { Command } from '@oclif/command';
 export const createCompiler = (
   entryPoint: string,
   distPath: string,
-  filename: string
+  filename: string,
+  mode: 'development' | 'production' | 'none'
 ): webpack.Compiler => {
   const cwd = process.cwd();
 
   const webpackConfig = {
-    mode: 'development',
+    mode,
     entry: entryPoint,
     module: {
       rules: [
@@ -44,10 +45,11 @@ export default (
   entryPoint: string,
   distPath: string,
   filename: string,
+  mode: 'development' | 'production' | 'none',
   command: Command
 ): Promise<void> =>
   new Promise((resolve, reject) => {
-    createCompiler(entryPoint, distPath, filename).run((error, stats) => {
+    createCompiler(entryPoint, distPath, filename, mode).run((error, stats) => {
       if (error) {
         reject(error.stack || error);
       }

@@ -17,6 +17,11 @@ import bundleChild from '../utils/bundle-child';
 import bundleWrapper from '../utils/bundle-wrapper';
 
 export default class Build extends Command {
+  static description = `
+Build a plutt project
+
+Make sure that there exists a src/ directory with an index.js`;
+
   async run() {
     // 1. Verify that the correct files and fields exists
     const projectDirectory = process.cwd();

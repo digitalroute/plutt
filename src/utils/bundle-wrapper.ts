@@ -34,7 +34,13 @@ export default async (
 
   // 5. Compile with webpack
   try {
-    await compiler(buildDestination, finalDist, 'index.js', command);
+    await compiler(
+      buildDestination,
+      finalDist,
+      'index.js',
+      'development',
+      command
+    );
   } catch (error) {
     throw error;
   }
