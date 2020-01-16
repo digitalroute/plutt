@@ -1,4 +1,4 @@
-class Wrapper extends React.Component {
+export default class Wrapper extends React.Component {
   constructor(props) {
     super(props);
 
