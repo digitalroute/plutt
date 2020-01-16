@@ -1,7 +1,4 @@
-@digitalroute/plutt
-===================
-
-
+# @digitalroute/plutt
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
@@ -9,11 +6,15 @@
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
@@ -25,31 +26,31 @@ USAGE
   $ plutt COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`plutt hello [FILE]`](#plutt-hello-file)
-* [`plutt help [COMMAND]`](#plutt-help-command)
 
-## `plutt hello [FILE]`
+- [`plutt build`](#plutt-build)
+- [`plutt help [COMMAND]`](#plutt-help-command)
 
-describe the command here
+## `plutt build`
+
+Build a plutt project
 
 ```
 USAGE
-  $ plutt hello [FILE]
+  $ plutt build
 
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+DESCRIPTION
+  Build a plutt project
 
-EXAMPLE
-  $ plutt hello
-  hello world from ./src/hello.ts!
+  Make sure that there exists a src/ directory with an index.js
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/digitalroute/plutt/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v0.0.0/src/commands/build.ts)_
 
 ## `plutt help [COMMAND]`
 
@@ -67,4 +68,5 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
 <!-- commandsstop -->
