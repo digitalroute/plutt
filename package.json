@@ -34,7 +34,6 @@
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^0.1.0",
     "eslint-config-prettier": "^6.9.0",
-    "globby": "^10.0.2",
     "husky": "^4.0.10",
     "lint-staged": "^9.5.0",
     "mocha": "^5.2.0",
@@ -77,6 +76,11 @@
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
