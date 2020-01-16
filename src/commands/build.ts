@@ -1,10 +1,6 @@
 import { Command } from '@oclif/command';
-import { promisify } from 'util';
-import { existsSync, readFile, writeFile } from 'fs';
 import { join } from 'path';
-import chalk from 'chalk';
-import { remove, copy, readJson } from 'fs-extra';
-import compiler from '../utils/compiler';
+import { readJson } from 'fs-extra';
 import {
   verifyPackageJsonExists,
   verifyHostPath,

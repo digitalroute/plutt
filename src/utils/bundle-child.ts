@@ -30,17 +30,13 @@ export default async (
   await copy(childWrapperOrigin, childWrapperDestination);
 
   // 4. Compile with webpack
-  try {
-    const fileName = `${name}.${version}.js`;
-    await compiler(
-      childWrapperDestination,
-      finalDist,
-      fileName,
-      'development',
-      command
-    );
-    return fileName;
-  } catch (error) {
-    throw error;
-  }
+  const fileName = `${name}.${version}.js`;
+  await compiler(
+    childWrapperDestination,
+    finalDist,
+    fileName,
+    'development',
+    command
+  );
+  return fileName;
 };

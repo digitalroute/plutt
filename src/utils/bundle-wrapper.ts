@@ -33,15 +33,11 @@ export default async (
   await promisify(writeFile)(buildDestination, newWrapper);
 
   // 5. Compile with webpack
-  try {
-    await compiler(
-      buildDestination,
-      finalDist,
-      'index.js',
-      'development',
-      command
-    );
-  } catch (error) {
-    throw error;
-  }
+  await compiler(
+    buildDestination,
+    finalDist,
+    'index.js',
+    'development',
+    command
+  );
 };

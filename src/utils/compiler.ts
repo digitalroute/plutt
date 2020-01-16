@@ -1,8 +1,5 @@
 import * as webpack from 'webpack';
-import { join } from 'path';
 import { Command } from '@oclif/command';
-
-// TODO: Add package version in output name.
 
 export const createCompiler = (
   entryPoint: string,
@@ -10,8 +7,6 @@ export const createCompiler = (
   filename: string,
   mode: 'development' | 'production' | 'none'
 ): webpack.Compiler => {
-  const cwd = process.cwd();
-
   const webpackConfig = {
     mode,
     entry: entryPoint,
