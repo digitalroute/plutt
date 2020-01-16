@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import { remove, copy } from 'fs-extra';
 import compiler from '../build-compiler';
 
-export default class BuildChild extends Command {
+export default class BuildWrapper extends Command {
   async run() {
     // 1. Check that src and src/index exists
     const projectDirectory = process.cwd();
