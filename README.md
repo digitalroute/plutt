@@ -6,15 +6,14 @@
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
-
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [@digitalroute/plutt](#digitalrouteplutt)
+* [Usage](#usage)
+* [Commands](#commands)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
@@ -26,15 +25,13 @@ USAGE
   $ plutt COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`plutt build`](#plutt-build)
-- [`plutt help [COMMAND]`](#plutt-help-command)
+* [`plutt build`](#plutt-build)
+* [`plutt help [COMMAND]`](#plutt-help-command)
 
 ## `plutt build`
 
@@ -68,5 +65,4 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
-
 <!-- commandsstop -->

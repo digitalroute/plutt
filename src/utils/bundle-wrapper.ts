@@ -4,7 +4,7 @@ import { promisify } from 'util';
 import Command from '@oclif/command';
 import compiler from './compiler';
 import { join } from 'path';
-import * as urlJoin from 'url-join';
+const urlJoin = require('url-join');
 
 export default async (
   projectDirectory: string,

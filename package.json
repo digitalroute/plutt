@@ -26,9 +26,11 @@
     "@types/fs-extra": "^8.0.1",
     "@types/mocha": "^5.2.7",
     "@types/node": "^10.17.13",
+    "@types/url-join": "^4.0.0",
     "@types/webpack": "^4.41.2",
     "chai": "^4.2.0",
     "commitizen": "^4.0.3",
+    "concurrently": "^5.0.2",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.8.0",
     "eslint-config-oclif": "^3.1.0",
@@ -73,7 +75,7 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "oclif-dev readme && git add README.md"
+    "update-docs": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts",
   "config": {
@@ -83,7 +85,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "concurrently \"lint-staged\" \"npm run update-docs\""
     }
   },
   "lint-staged": {
