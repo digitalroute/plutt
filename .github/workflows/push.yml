@@ -13,9 +13,9 @@ jobs:
         with:
           node-version: '12.x'
       - run: npm ci
-      - run: npm run test
       - run: npm test
         env:
           CI: true
+      - run: "echo ${{ github.ref }}"
       - if: github.ref == 'master'
         run: npm run semantic-release
