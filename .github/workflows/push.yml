@@ -17,4 +17,5 @@ jobs:
       - run: npm test
         env:
           CI: true
-      - run: npm run semantic-release
+      - if: github.ref == 'master'
+        run: npm run semantic-release
