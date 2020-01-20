@@ -17,6 +17,6 @@ jobs:
         env:
           CI: true
       - run: 'echo ${{ github.ref }}'
-      - run: 'git push --dry-run git@github.com:digitalroute/plutt.git HEAD:master'
+      - run: 'git push --dry-run https://github.com/digitalroute/plutt.git HEAD:master'
       - if: github.ref == 'refs/heads/master'
         run: npm run semantic-release
