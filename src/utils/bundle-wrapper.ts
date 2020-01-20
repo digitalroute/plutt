@@ -1,7 +1,6 @@
 import { remove, copy } from 'fs-extra';
 import { readFile, writeFile } from 'fs';
 import { promisify } from 'util';
-import Command from '@oclif/command';
 import compiler from './compiler';
 import { join } from 'path';
 const urlJoin = require('url-join');
@@ -9,8 +8,7 @@ const urlJoin = require('url-join');
 export default async (
   projectDirectory: string,
   hostPath: string,
-  childFileName: string,
-  command: Command
+  childFileName: string
 ) => {
   // 1. Define paths
   const buildDestination = join(projectDirectory, '.plutt', 'wrapper.js');
@@ -24,20 +22,14 @@ export default async (
   // 3. Update wrapper to import the correct file
   const wrapperBuffer = await promisify(readFile)(buildDestination);
   const wrapperRaw = await wrapperBuffer.toString();
+  const remotePath = urlJoin(hostPath, childFileName);
 
-  const newWrapper = wrapperRaw.replace(
-    '<remote.js>',
-    urlJoin(hostPath, childFileName)
-  );
+  const newWrapper = wrapperRaw.replace('<remote.js>', remotePath);
 
   await promisify(writeFile)(buildDestination, newWrapper);
 
-  // 5. Compile with webpack
-  await compiler(
-    buildDestination,
-    finalDist,
-    'index.js',
-    'development',
-    command
-  );
+  // 5. Compile with rollup
+  // console.log(remotePath);
+  // console.log([remotePath]);
+  await compiler(buildDestination, finalDist, 'index.js', [remotePath]);
 };

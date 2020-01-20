@@ -42,14 +42,14 @@ Make sure that there exists a src/ directory with an index.js`;
     // 3. Bundle child
     let childFileName = '';
     try {
-      childFileName = await bundleChild(projectDirectory, version, name, this);
+      childFileName = await bundleChild(projectDirectory, version, name);
     } catch (error) {
       this.error(error);
     }
 
     // 4. Compile wrapper
     try {
-      await bundleWrapper(projectDirectory, hostPath, childFileName, this);
+      await bundleWrapper(projectDirectory, hostPath, childFileName);
     } catch (error) {
       this.error(error);
     }

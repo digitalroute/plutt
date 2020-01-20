@@ -1,66 +1,41 @@
-import * as webpack from 'webpack';
-import { Command } from '@oclif/command';
+import { rollup } from 'rollup';
+import { join } from 'path';
+// @ts-ignore
+import * as babel from 'rollup-plugin-babel';
+import * as commonjs from '@rollup/plugin-commonjs';
+import * as resolve from '@rollup/plugin-node-resolve';
+import * as replace from '@rollup/plugin-replace';
 
-export const createCompiler = (
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
+export default async (
   entryPoint: string,
   distPath: string,
   filename: string,
-  mode: 'development' | 'production' | 'none'
-): webpack.Compiler => {
-  const webpackConfig = {
-    mode,
-    entry: entryPoint,
-    module: {
-      rules: [
-        {
-          test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          use: {
-            loader: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-env', '@babel/preset-react']
-            }
-          }
-        }
-      ]
-    },
-    resolve: {
-      extensions: ['*', '.js', '.jsx']
-    },
-    output: {
-      path: distPath,
-      filename
-    }
-  };
-
-  return webpack(webpackConfig);
-};
-
-export default (
-  entryPoint: string,
-  distPath: string,
-  filename: string,
-  mode: 'development' | 'production' | 'none',
-  command: Command
-): Promise<void> =>
-  new Promise((resolve, reject) => {
-    createCompiler(entryPoint, distPath, filename, mode).run((error, stats) => {
-      if (error) {
-        reject(error.stack || error);
-      }
-
-      const info = stats.toJson();
-
-      if (stats.hasErrors()) {
-        reject(info.errors[0]);
-      }
-
-      if (stats.hasWarnings()) {
-        info.warnings.forEach(warning => command.warn(warning));
-      }
-
-      stats.compilation.errors.forEach(command.log);
-
-      resolve();
-    });
+  external?: string[]
+) => {
+  const bundle = await rollup({
+    input: entryPoint,
+    external,
+    plugins: [
+      // @ts-ignore
+      replace({
+        'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
+      }),
+      babel({
+        exclude: 'node_modules/**',
+        presets: ['@babel/preset-env', '@babel/preset-react'],
+        plugins: ['@babel/plugin-proposal-class-properties']
+      }),
+      // @ts-ignore
+      resolve(),
+      // @ts-ignore
+      commonjs()
+    ]
   });
+
+  await bundle.write({
+    file: join(distPath, filename),
+    format: 'esm'
+  });
+};

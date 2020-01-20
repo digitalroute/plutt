@@ -6,8 +6,7 @@ import Command from '@oclif/command';
 export default async (
   projectDirectory: string,
   version: string,
-  name: string,
-  command: Command
+  name: string
 ): Promise<string> => {
   // 1. Define paths
   const buildDirectory = join(projectDirectory, '.plutt', 'child');
@@ -29,14 +28,8 @@ export default async (
   // 3. Copy template
   await copy(childWrapperOrigin, childWrapperDestination);
 
-  // 4. Compile with webpack
+  // 4. Compile with rollup
   const fileName = `${name}.${version}.js`;
-  await compiler(
-    childWrapperDestination,
-    finalDist,
-    fileName,
-    'development',
-    command
-  );
+  await compiler(childWrapperDestination, finalDist, fileName);
   return fileName;
 };

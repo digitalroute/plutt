@@ -4,7 +4,7 @@ export default class Wrapper extends React.Component {
 
     this.mountRef = React.createRef();
 
-    import(/* webpackIgnore: true */ '<remote.js>').then(({ mountApp }) => {
+    import('<remote.js>').then(({ mountApp }) => {
       mountApp(React, ReactDom, this.mountRef.current);
     });
   }
