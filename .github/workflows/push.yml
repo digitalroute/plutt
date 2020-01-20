@@ -17,5 +17,5 @@ jobs:
         env:
           CI: true
       - run: "echo ${{ github.ref }}"
-      - if: github.ref == 'master'
+      - if: github.ref == 'refs/heads/master'
         run: npm run semantic-release
