@@ -1,6 +1,6 @@
 {
   "name": "@digitalroute/plutt",
-  "version": "0.0.0",
+  "version": "0.0.0-semantically-released",
   "author": "Julius Celik",
   "bin": {
     "plutt": "./bin/run"
@@ -92,6 +92,14 @@
     "*.{ts,js,json,md,yml}": [
       "prettier --write",
       "git add"
+    ]
+  },
+  "release": {
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/npm",
+      "@semantic-release/git"
     ]
   }
 }
