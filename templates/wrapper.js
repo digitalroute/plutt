@@ -7,7 +7,10 @@ export default class Wrapper extends React.Component {
 
     import(/* webpackIgnore: true */ '<remote.js>').then(
       ({ default: mountApp }) => {
-        mountApp(this.mountRef.current, childRef => (this.childRef = childRef));
+        mountApp(this.mountRef.current, childRef => {
+          this.childRef = childRef;
+          this.childRef.setState(this.props);
+        });
       }
     );
   }
