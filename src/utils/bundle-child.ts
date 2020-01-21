@@ -1,7 +1,6 @@
 import { join } from 'path';
 import { remove, copy } from 'fs-extra';
 import compiler from './compiler';
-import Command from '@oclif/command';
 
 export default async (
   projectDirectory: string,

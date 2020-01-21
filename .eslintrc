@@ -1,6 +1,7 @@
 {
   "extends": ["oclif", "oclif-typescript", "prettier"],
   "rules": {
-    "max-params": 0
+    "max-params": 0,
+    "@typescript-eslint/ban-ts-ignore": 0
   }
 }
