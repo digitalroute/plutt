@@ -22,10 +22,10 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
           GIT_SSH_COMMAND: 'ssh -o StrictHostKeyChecking=no'
-          run: |
-            mkdir ~/.ssh
-            echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
-            chmod 600 ~/.ssh/id_rsa
+        run: |
+          mkdir ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
       - run: 'git push --dry-run git@github.com:digitalroute/plutt.git HEAD:master'
       - if: github.ref == 'refs/heads/master'
         run: npm run semantic-release
