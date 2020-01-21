@@ -26,11 +26,6 @@ jobs:
             mkdir ~/.ssh
             echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
             chmod 600 ~/.ssh/id_rsa
-
-#         run: |
-#           eval "$(ssh-agent -s)"
-#           ssh-add - <<< "${DEPLOY_KEY}"
-
       - run: 'git push --dry-run git@github.com:digitalroute/plutt.git HEAD:master'
       - if: github.ref == 'refs/heads/master'
         run: npm run semantic-release
