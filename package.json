@@ -73,7 +73,10 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "digitalroute/plutt",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:digitalroute/plutt.git"
+  },
   "scripts": {
     "commit": "git-cz",
     "semantic-release": "semantic-release",
