@@ -19,7 +19,7 @@ $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
 running command...
 $ plutt (-v|--version|version)
-@digitalroute/plutt/1.0.0 linux-x64 node-v12.14.1
+@digitalroute/plutt/1.0.0-beta.1 linux-x64 node-v12.14.1
 $ plutt --help [COMMAND]
 USAGE
   $ plutt COMMAND
@@ -47,7 +47,7 @@ DESCRIPTION
   Make sure that there exists a src/ directory with an index.js
 ```
 
-_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v1.0.0/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v1.0.0-beta.1/src/commands/build.ts)_
 
 ## `plutt help [COMMAND]`
 
