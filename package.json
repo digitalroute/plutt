@@ -36,7 +36,6 @@
     "@types/webpack": "^4.41.2",
     "chai": "^4.2.0",
     "commitizen": "^4.0.3",
-    "concurrently": "^5.0.2",
     "cz-conventional-changelog": "^3.0.2",
     "eslint": "^6.8.0",
     "eslint-config-oclif": "^3.1.0",
@@ -45,6 +44,7 @@
     "husky": "^4.0.10",
     "lint-staged": "^9.5.0",
     "mocha": "^5.2.0",
+    "npm-run-all": "^4.1.5",
     "nyc": "^14.1.1",
     "semantic-release": "^16.0.2",
     "ts-node": "^8.6.2",
@@ -85,7 +85,8 @@
     "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "nyc --extension .ts mocha --forbid-only \"test/**/*.test.ts\"",
-    "update-docs": "oclif-dev readme && git add README.md"
+    "update-docs": "oclif-dev readme && git add README.md",
+    "lint-staged": "lint-staged"
   },
   "types": "lib/index.d.ts",
   "config": {
@@ -95,7 +96,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "concurrently \"lint-staged\" \"npm run update-docs\""
+      "pre-commit": "npm-run-all --serial lint-staged update-docs"
     }
   },
   "lint-staged": {
