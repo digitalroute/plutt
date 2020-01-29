@@ -19,7 +19,7 @@ $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
 running command...
 $ plutt (-v|--version|version)
-@digitalroute/plutt/1.0.0-beta.1 linux-x64 node-v12.14.1
+@digitalroute/plutt/1.0.0-beta.1 darwin-x64 node-v12.14.1
 $ plutt --help [COMMAND]
 USAGE
   $ plutt COMMAND

@@ -15,6 +15,10 @@ export default class Wrapper extends React.Component {
     );
   }
 
+  componentWillUnmount() {
+    ReactDOM.unmountComponentAtNode(this.mountRef);
+  }
+
   render() {
     if (this.childRef) {
       this.childRef.setState(this.props);
