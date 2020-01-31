@@ -9,8 +9,7 @@ import {
   verifyNameField,
   verifyVersionField
 } from '../utils/verify';
-import bundleChild from '../utils/bundle-child';
-import bundleWrapper from '../utils/bundle-wrapper';
+import bundle from '../utils/bundle';
 
 export default class Build extends Command {
   static description = `
@@ -39,17 +38,9 @@ Make sure that there exists a src/ directory with an index.js`;
     const packageJsonPath = join(projectDirectory, 'package.json');
     const { hostPath, version, name } = await readJson(packageJsonPath);
 
-    // 3. Bundle child
-    let childFileName = '';
+    // 3. Bundle child and wrapper
     try {
-      childFileName = await bundleChild(projectDirectory, version, name);
-    } catch (error) {
-      this.error(error);
-    }
-
-    // 4. Compile wrapper
-    try {
-      await bundleWrapper(projectDirectory, hostPath, childFileName);
+      bundle({ projectDirectory, version, name, hostPath });
     } catch (error) {
       this.error(error);
     }
