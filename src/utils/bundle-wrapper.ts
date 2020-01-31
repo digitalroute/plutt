@@ -13,7 +13,7 @@ export default async (
   // 1. Define paths
   const buildDestination = join(projectDirectory, '.plutt', 'wrapper.js');
   const wrapperOrigin = join(__dirname, '..', '..', 'templates', 'wrapper.js');
-  const finalDist = join(projectDirectory, 'dist');
+  const finalDist = join(projectDirectory, 'build');
 
   // 2.Copy wrapper to build directory
   await remove(buildDestination);
@@ -31,5 +31,9 @@ export default async (
   // 5. Compile with rollup
   // console.log(remotePath);
   // console.log([remotePath]);
-  await compiler(buildDestination, finalDist, 'index.js', [remotePath]);
+  await compiler(buildDestination, finalDist, 'index.js', [
+    remotePath,
+    'react',
+    'react-dom'
+  ]);
 };

@@ -18,7 +18,7 @@ export default async (
     'child.js'
   );
   const childWrapperDestination = join(buildDirectory, '__index.js');
-  const finalDist = join(projectDirectory, 'dist');
+  const finalDist = join(projectDirectory, 'build');
 
   // 2. Copy source files
   await remove(buildDirectory);
