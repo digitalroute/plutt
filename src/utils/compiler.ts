@@ -16,7 +16,7 @@ export default async (
 ) => {
   const bundle = await rollup({
     input: entryPoint,
-    external: ['react', 'react-dom', ...external],
+    external,
     plugins: [
       // @ts-ignore
       replace({
