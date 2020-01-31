@@ -12,11 +12,11 @@ export default async (
   entryPoint: string,
   distPath: string,
   filename: string,
-  external?: string[]
+  external: string[] = []
 ) => {
   const bundle = await rollup({
     input: entryPoint,
-    external,
+    external: ['react', 'react-dom', ...external],
     plugins: [
       // @ts-ignore
       replace({

@@ -19,7 +19,7 @@ $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
 running command...
 $ plutt (-v|--version|version)
-@digitalroute/plutt/1.0.0-beta.1 darwin-x64 node-v12.14.1
+@digitalroute/plutt/0.0.0-semantically-released darwin-x64 node-v12.14.1
 $ plutt --help [COMMAND]
 USAGE
   $ plutt COMMAND
@@ -32,6 +32,7 @@ USAGE
 <!-- commands -->
 * [`plutt build`](#plutt-build)
 * [`plutt help [COMMAND]`](#plutt-help-command)
+* [`plutt watch`](#plutt-watch)
 
 ## `plutt build`
 
@@ -47,7 +48,7 @@ DESCRIPTION
   Make sure that there exists a src/ directory with an index.js
 ```
 
-_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v1.0.0-beta.1/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/build.ts)_
 
 ## `plutt help [COMMAND]`
 
@@ -65,4 +66,20 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `plutt watch`
+
+Build a plutt project
+
+```
+USAGE
+  $ plutt watch
+
+DESCRIPTION
+  Build a plutt project
+
+  Make sure that there exists a src/ directory with an index.js
+```
+
+_See code: [src/commands/watch.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/watch.ts)_
 <!-- commandsstop -->
