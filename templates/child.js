@@ -2,6 +2,8 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import App from '.';
 
+class ChildWrapper extends React.Component {}
+
 export default (mountElement, callback) => {
   let ref = null;
   ReactDOM.render(
