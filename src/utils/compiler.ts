@@ -6,6 +6,7 @@ import * as commonjs from '@rollup/plugin-commonjs';
 import * as resolve from '@rollup/plugin-node-resolve';
 import * as replace from '@rollup/plugin-replace';
 
+// @ts-ignore
 import * as flow from 'rollup-plugin-flow';
 // import * as flowEntry from 'rollup-plugin-flow-entry';
 import * as json from '@rollup/plugin-json';
