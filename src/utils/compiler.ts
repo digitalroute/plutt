@@ -8,7 +8,6 @@ import * as replace from '@rollup/plugin-replace';
 
 // @ts-ignore
 import * as flow from 'rollup-plugin-flow';
-// import * as flowEntry from 'rollup-plugin-flow-entry';
 import * as json from '@rollup/plugin-json';
 
 const NODE_ENV = process.env.NODE_ENV || 'development';
