@@ -25,7 +25,6 @@ jobs:
           mkdir ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-      - run: 'git push --dry-run git@github.com:digitalroute/plutt.git HEAD:master'
       - run: npm run semantic-release
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
