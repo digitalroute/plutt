@@ -1,6 +1,5 @@
 import { join } from 'path';
 import { existsSync } from 'fs';
-import { readJson } from 'fs-extra';
 import chalk from 'chalk';
 
 export const verifyPackageJsonExists = (
@@ -20,60 +19,6 @@ export const verifyPackageJsonExists = (
     }
 
     resolve();
-  });
-
-export const verifyHostPath = (projectDirectory: string): Promise<void> =>
-  new Promise((resolve, reject) => {
-    const packageJsonPath = join(projectDirectory, 'package.json');
-    readJson(packageJsonPath).then(packageJson => {
-      if (!packageJson.hostPath) {
-        reject(
-          new Error(
-            `Plutt can not find a ${chalk.magenta(
-              'hostPath'
-            )} field in ${chalk.magenta('package.json')}`
-          )
-        );
-      }
-
-      resolve();
-    });
-  });
-
-export const verifyNameField = (projectDirectory: string): Promise<void> =>
-  new Promise((resolve, reject) => {
-    const packageJsonPath = join(projectDirectory, 'package.json');
-    readJson(packageJsonPath).then(packageJson => {
-      if (!packageJson.name) {
-        reject(
-          new Error(
-            `Plutt can not find a ${chalk.magenta(
-              'name'
-            )} field in ${chalk.magenta('package.json')}`
-          )
-        );
-      }
-
-      resolve();
-    });
-  });
-
-export const verifyVersionField = (projectDirectory: string): Promise<void> =>
-  new Promise((resolve, reject) => {
-    const packageJsonPath = join(projectDirectory, 'package.json');
-    readJson(packageJsonPath).then(packageJson => {
-      if (!packageJson.version) {
-        reject(
-          new Error(
-            `Plutt can not find a ${chalk.magenta(
-              'version'
-            )} field in ${chalk.magenta('package.json')}`
-          )
-        );
-      }
-
-      resolve();
-    });
   });
 
 export const verifySourceDirectory = (

@@ -6,11 +6,8 @@ import chalk from 'chalk';
 
 import {
   verifyPackageJsonExists,
-  verifyHostPath,
   verifySourceDirectory,
-  verifyIndexFile,
-  verifyNameField,
-  verifyVersionField
+  verifyIndexFile
 } from '../utils/verify';
 import bundle from '../utils/bundle';
 
