@@ -6,16 +6,13 @@ export default class Wrapper extends React.Component {
     super(props);
 
     this.mountRef = React.createRef();
-    this.childRef;
 
     import(/* webpackIgnore: true */ '<remote.js>').then(
       ({ default: mountApp }) => {
         this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
+        this.mountApp = mountApp;
 
-        mountApp(this.shadow, childRef => {
-          this.childRef = childRef;
-          this.childRef.setState(this.props);
-        });
+        mountApp(this.shadow, props);
       }
     );
   }
@@ -25,8 +22,8 @@ export default class Wrapper extends React.Component {
   }
 
   render() {
-    if (this.childRef) {
-      this.childRef.setState(this.props);
+    if (this.mountApp) {
+      this.mountApp(this.shadow, this.props, () => undefined);
     }
 
     return <div ref={this.mountRef}></div>;

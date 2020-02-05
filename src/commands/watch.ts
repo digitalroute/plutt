@@ -14,7 +14,7 @@ import { watch } from 'chokidar';
 
 const throttler = () => {
   let nextTask: Function | null;
-  let running: boolean = false;
+  let running = false;
 
   return async (callback: Function) => {
     if (running) {
@@ -26,6 +26,7 @@ const throttler = () => {
       while (nextTask) {
         const runTask = nextTask;
         nextTask = null;
+        // eslint-disable-next-line no-await-in-loop
         await runTask();
       }
 
@@ -64,7 +65,7 @@ Make sure that there exists a src/ directory with an index.js`;
     // 3. Start watcher
     const throttle = throttler();
 
-    watch(join(projectDirectory, 'src')).on('all', event => {
+    watch(join(projectDirectory, 'src')).on('all', () => {
       try {
         throttle(async () => {
           this.log('Compiling...');

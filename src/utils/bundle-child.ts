@@ -1,15 +1,16 @@
 import { join } from 'path';
-import { remove, copy } from 'fs-extra';
+import { copy } from 'fs-extra';
 import compiler from './compiler';
 
 export default async (
   projectDirectory: string,
+  sourceDirectory: string,
   version: string,
   name: string
 ): Promise<string> => {
   // 1. Define paths
   const buildDirectory = join(projectDirectory, '.plutt', 'child');
-  const sourceDirectory = join(projectDirectory, 'src');
+  const absoluteSourceDirectory = join(projectDirectory, sourceDirectory);
   const childWrapperOrigin = join(
     __dirname,
     '..',
@@ -17,12 +18,11 @@ export default async (
     'templates',
     'child.js'
   );
-  const childWrapperDestination = join(buildDirectory, '__index.js');
+  const childWrapperDestination = join(buildDirectory, '__index.jsx');
   const finalDist = join(projectDirectory, 'build');
 
   // 2. Copy source files
-  await remove(buildDirectory);
-  await copy(sourceDirectory, buildDirectory);
+  await copy(absoluteSourceDirectory, buildDirectory);
 
   // 3. Copy template
   await copy(childWrapperOrigin, childWrapperDestination);

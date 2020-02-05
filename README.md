@@ -42,6 +42,9 @@ Build a plutt project
 USAGE
   $ plutt build
 
+OPTIONS
+  -s, --sourceDirectory=sourceDirectory  [default: src] The source directory for the plutt project.
+
 DESCRIPTION
   Build a plutt project
 

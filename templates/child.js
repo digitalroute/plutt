@@ -1,16 +1,6 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-import App from '.';
+import App from './index.jsx';
 
-class ChildWrapper extends React.Component {}
-
-export default (mountElement, callback) => {
-  let ref = null;
-  ReactDOM.render(
-    <App ref={component => (ref = component)} />,
-    mountElement,
-    () => {
-      callback(ref);
-    }
-  );
-};
+export default (mountElement, props) =>
+  ReactDOM.render(<App {...props} />, mountElement);

@@ -77,13 +77,14 @@ export const verifyVersionField = (projectDirectory: string): Promise<void> =>
   });
 
 export const verifySourceDirectory = (
-  projectDirectory: string
+  projectDirectory: string,
+  sourceDirectory: string
 ): Promise<void> =>
   new Promise((resolve, reject) => {
-    const sourceDirectory = join(projectDirectory, 'src');
-    const entryPath = join(sourceDirectory, 'index.js');
+    const absoluteSourceDirectory = join(projectDirectory, sourceDirectory);
+    const entryPath = join(absoluteSourceDirectory, 'index.jsx');
 
-    if (!existsSync(sourceDirectory)) {
+    if (!existsSync(absoluteSourceDirectory)) {
       reject(
         new Error(`Can not build plutt. There does not exist a src directory.
         
@@ -94,9 +95,12 @@ Looking in ${chalk.magenta(entryPath)}`)
     resolve();
   });
 
-export const verifyIndexFile = (projectDirectory: string): Promise<void> =>
+export const verifyIndexFile = (
+  projectDirectory: string,
+  sourceDirectory: string
+): Promise<void> =>
   new Promise((resolve, reject) => {
-    const entryPath = join(projectDirectory, 'src', 'index.js');
+    const entryPath = join(projectDirectory, sourceDirectory, 'index.jsx');
 
     if (!existsSync(entryPath)) {
       reject(
