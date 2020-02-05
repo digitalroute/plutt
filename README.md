@@ -1,4 +1,4 @@
-# @digitalroute/plutt
+# Plutt
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
-* [@digitalroute/plutt](#digitalrouteplutt)
+* [Plutt](#plutt)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
