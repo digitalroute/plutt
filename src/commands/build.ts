@@ -60,7 +60,6 @@ Make sure that there exists a src/ directory with an index.js`;
     const { config } = cosmicConfigResult;
 
     // 2. Verify that the correct files exists
-
     try {
       await Promise.all([
         verifyPackageJsonExists(projectDirectory),
@@ -98,7 +97,14 @@ Make sure that there exists a src/ directory with an index.js`;
 
     // 4. Bundle child and wrapper
     try {
-      bundle({ projectDirectory, sourceDirectory, version, name, hostPath });
+      bundle({
+        projectDirectory,
+        sourceDirectory,
+        version,
+        name,
+        hostPath,
+        logger: this
+      });
     } catch (error) {
       this.error(error);
     }

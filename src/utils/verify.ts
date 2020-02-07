@@ -27,13 +27,12 @@ export const verifySourceDirectory = (
 ): Promise<void> =>
   new Promise((resolve, reject) => {
     const absoluteSourceDirectory = join(projectDirectory, sourceDirectory);
-    const entryPath = join(absoluteSourceDirectory, 'index.jsx');
 
     if (!existsSync(absoluteSourceDirectory)) {
       reject(
         new Error(`Can not build plutt. There does not exist a src directory.
         
-Looking in ${chalk.magenta(entryPath)}`)
+Looking in ${chalk.magenta(absoluteSourceDirectory)}`)
       );
     }
 
@@ -45,13 +44,14 @@ export const verifyIndexFile = (
   sourceDirectory: string
 ): Promise<void> =>
   new Promise((resolve, reject) => {
-    const entryPath = join(projectDirectory, sourceDirectory, 'index.jsx');
+    const entryPathJs = join(projectDirectory, sourceDirectory, 'index.jsx');
+    const entryPathTs = join(projectDirectory, sourceDirectory, 'index.tsx');
 
-    if (!existsSync(entryPath)) {
+    if (!existsSync(entryPathJs) && !existsSync(entryPathTs)) {
       reject(
         new Error(`Can not build plutt. There does not exist an index file.
         
-Looking in ${chalk.magenta(entryPath)}`)
+Looking in ${chalk.magenta(entryPathJs)} and ${chalk.magenta(entryPathTs)}`)
       );
     }
     resolve();

@@ -25,6 +25,7 @@
     "rollup-plugin-babel": "^4.3.3",
     "rollup-plugin-flow": "^1.1.1",
     "rollup-plugin-flow-entry": "^0.3.3",
+    "rollup-plugin-typescript2": "^0.25.3",
     "tslib": "^1.10.0",
     "url-join": "^4.0.1"
   },

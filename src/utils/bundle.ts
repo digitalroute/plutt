@@ -2,6 +2,7 @@ import { join } from 'path';
 import { remove } from 'fs-extra';
 import bundleChild from './bundle-child';
 import bundleWrapper from './bundle-wrapper';
+import Command from '@oclif/command';
 
 type buildInformation = {
   projectDirectory: string;
@@ -9,6 +10,7 @@ type buildInformation = {
   version: string;
   name: string;
   hostPath: string;
+  logger: Command;
 };
 
 export default async ({
@@ -16,7 +18,8 @@ export default async ({
   sourceDirectory,
   version,
   name,
-  hostPath
+  hostPath,
+  logger
 }: buildInformation) => {
   // 1. Remove .plutt and build directory
   const pluttDirectory = join(projectDirectory, '.plutt');
@@ -25,7 +28,8 @@ export default async ({
 
   // 2. Bundle child
   const versionString = 'v' + version;
-  const childFileName = await bundleChild(
+  const { fileName: childFileName, useTypescript } = await bundleChild(
+    logger,
     projectDirectory,
     sourceDirectory,
     versionString,
@@ -33,5 +37,5 @@ export default async ({
   );
 
   // 3. Compile wrapper
-  await bundleWrapper(projectDirectory, hostPath, childFileName);
+  await bundleWrapper(useTypescript, projectDirectory, hostPath, childFileName);
 };

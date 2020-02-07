@@ -6,13 +6,14 @@ import { join } from 'path';
 const urlJoin = require('url-join');
 
 export default async (
+  useTypescript: boolean,
   projectDirectory: string,
   hostPath: string,
   childFileName: string
 ) => {
   // 1. Define paths
-  const buildDestination = join(projectDirectory, '.plutt', 'wrapper.js');
-  const wrapperOrigin = join(__dirname, '..', '..', 'templates', 'wrapper.js');
+  const buildDestination = join(projectDirectory, '.plutt', 'wrapper.tsx');
+  const wrapperOrigin = join(__dirname, '..', '..', 'templates', 'wrapper.tsx');
   const finalDist = join(projectDirectory, 'build');
 
   // 2.Copy wrapper to build directory
@@ -31,7 +32,7 @@ export default async (
   // 5. Compile with rollup
   // console.log(remotePath);
   // console.log([remotePath]);
-  await compiler(buildDestination, finalDist, 'index.js', [
+  await compiler(useTypescript, true, buildDestination, finalDist, 'index.js', [
     remotePath,
     'react',
     'react-dom'
