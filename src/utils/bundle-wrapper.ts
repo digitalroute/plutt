@@ -12,8 +12,20 @@ export default async (
   childFileName: string
 ) => {
   // 1. Define paths
-  const buildDestination = join(projectDirectory, '.plutt', 'wrapper.tsx');
-  const wrapperOrigin = join(__dirname, '..', '..', 'templates', 'wrapper.tsx');
+  const postfix = useTypescript ? '.tsx' : '.jsx';
+
+  const buildDestination = join(
+    projectDirectory,
+    '.plutt',
+    `wrapper${postfix}`
+  );
+  const wrapperOrigin = join(
+    __dirname,
+    '..',
+    '..',
+    'templates',
+    `wrapper${postfix}`
+  );
   const finalDist = join(projectDirectory, 'build');
 
   // 2.Copy wrapper to build directory
