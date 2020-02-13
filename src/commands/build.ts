@@ -11,6 +11,9 @@ import {
 } from '../utils/verify';
 import bundle from '../utils/bundle';
 
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+
 type Config = {
   hostPath: string;
   version: string;
@@ -36,13 +39,18 @@ Make sure that there exists a src/ directory with an index.js`;
       char: 's',
       description: 'The source directory for the plutt project.',
       default: 'src'
+    }),
+    verbose: flags.boolean({
+      char: 'v',
+      description: 'Prints extra information. Usefull for debuging.',
+      default: false
     })
   };
 
   async run() {
     // 1. Read flags and config
     const { flags } = this.parse(Build);
-    const sourceDirectory = flags.sourceDirectory;
+    const { sourceDirectory, verbose } = flags;
     const projectDirectory = process.cwd();
 
     const explorer = await cosmiconfig('plutt');
@@ -52,7 +60,7 @@ Make sure that there exists a src/ directory with an index.js`;
 
     if (!cosmicConfigResult || cosmicConfigResult.isEmpty)
       this.error(
-        `Plutt could not find any config in ${chalk.magenta(
+        `Plutt could not find any config in ${chalk.red(
           'package.json'
         )} or config file.`
       );
@@ -77,36 +85,38 @@ Make sure that there exists a src/ directory with an index.js`;
     const { hostPath } = config;
     if (!hostPath) {
       this.error(
-        `Could not find any configuration for ${chalk.magenta('hostPath')}`
+        `Could not find any configuration for ${chalk.red('hostPath')}`
       );
     }
 
     const name = chooseDefault(config, packageJson, 'name');
     if (!name) {
-      this.error(
-        `Could not find any configuration for ${chalk.magenta('name')}`
-      );
+      this.error(`Could not find any configuration for ${chalk.red('name')}`);
     }
 
     const version = chooseDefault(config, packageJson, 'version');
     if (!version) {
       this.error(
-        `Could not find any configuration for ${chalk.magenta('version')}`
+        `Could not find any configuration for ${chalk.red('version')}`
       );
     }
 
     // 4. Bundle child and wrapper
+    this.log('Creating an optimized production build...');
     try {
-      bundle({
+      await bundle({
         projectDirectory,
         sourceDirectory,
         version,
         name,
         hostPath,
-        logger: this
+        logger: this,
+        verbose
       });
     } catch (error) {
       this.error(error);
     }
+
+    return this.log(chalk.green('Compiled successfully.'));
   }
 }

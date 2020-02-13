@@ -11,6 +11,7 @@ type buildInformation = {
   name: string;
   hostPath: string;
   logger: Command;
+  verbose: boolean;
 };
 
 export default async ({
@@ -19,7 +20,8 @@ export default async ({
   version,
   name,
   hostPath,
-  logger
+  logger,
+  verbose
 }: buildInformation) => {
   // 1. Remove .plutt and build directory
   const pluttDirectory = join(projectDirectory, '.plutt');
@@ -30,6 +32,7 @@ export default async ({
   const versionString = 'v' + version;
   const { fileName: childFileName, useTypescript } = await bundleChild(
     logger,
+    verbose,
     projectDirectory,
     sourceDirectory,
     versionString,

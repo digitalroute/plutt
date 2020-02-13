@@ -12,7 +12,8 @@ export default async (
   childFileName: string
 ) => {
   // 1. Define paths
-  const postfix = useTypescript ? '.tsx' : '.jsx';
+  // const postfix = useTypescript ? '.tsx' : '.jsx';
+  const postfix = '.jsx';
 
   const buildDestination = join(
     projectDirectory,
@@ -42,11 +43,5 @@ export default async (
   await promisify(writeFile)(buildDestination, newWrapper);
 
   // 5. Compile with rollup
-  // console.log(remotePath);
-  // console.log([remotePath]);
-  await compiler(useTypescript, true, buildDestination, finalDist, 'index.js', [
-    remotePath,
-    'react',
-    'react-dom'
-  ]);
+  await compiler(buildDestination, finalDist, 'index.js');
 };

@@ -43,6 +43,7 @@ USAGE
 
 OPTIONS
   -s, --sourceDirectory=sourceDirectory  [default: src] The source directory for the plutt project.
+  -v, --verbose                          Prints extra information. Usefull for debuging.
 
 DESCRIPTION
   Build a plutt project

@@ -1,79 +1,92 @@
-import { rollup } from 'rollup';
-import { join } from 'path';
-// @ts-ignore
-import * as babel from 'rollup-plugin-babel';
-import * as commonjs from '@rollup/plugin-commonjs';
-import * as resolve from '@rollup/plugin-node-resolve';
-import * as replace from '@rollup/plugin-replace';
-import * as typescript from 'rollup-plugin-typescript2';
+import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
+import chalk from 'chalk';
 
-// @ts-ignore
-import * as flow from 'rollup-plugin-flow';
-import * as json from '@rollup/plugin-json';
+import webpack from 'webpack';
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-
-function insertIf(condition: boolean, ...elements: any[]): any[] {
-  return condition ? elements : [];
-}
-
-export default async (
-  useTypescript: boolean,
-  declaration: boolean,
+export default function(
   entryPoint: string,
   distPath: string,
-  filename: string,
-  external: string[] = []
-) => {
-  const bundle = await rollup({
-    input: entryPoint,
-    external,
-    plugins: [
-      // @ts-ignore
-      replace({
-        'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
-      }),
-      ...insertIf(!useTypescript, flow()),
-      babel({
-        exclude: 'node_modules/**',
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-      }),
-      ...insertIf(
-        useTypescript,
-        // @ts-ignore
-        typescript({
-          tsconfigDefaults: {
-            compilerOptions: {
-              jsx: 'react',
-              allowSyntheticDefaultImports: true,
-              declaration: declaration,
-              declarationDir: 'build/types',
-              lib: ['es2019', 'dom'],
-              module: 'ESNext',
-              importHelpers: true
+  filename: string
+) {
+  return new Promise((resolve, reject) => {
+    const compiler = webpack({
+      mode: 'development',
+      entry: entryPoint,
+      output: {
+        library: 'hello',
+        libraryTarget: 'commonjs2',
+        filename,
+        path: distPath
+      },
+      module: {
+        rules: [
+          {
+            test: /\.tsx?$/,
+            use: 'ts-loader',
+            exclude: /node_modules/
+          },
+          {
+            exclude: /node_modules/,
+            test: /\.jsx?$/,
+            loader: 'babel-loader',
+            options: {
+              presets: ['react-app']
             }
           }
-        })
-      ),
-      // @ts-ignore
-      resolve({
-        extensions: [
-          '.js',
-          '.jsx',
-          '.json',
-          ...insertIf(useTypescript, '.ts', '.tsx')
         ]
-      }),
-      // @ts-ignore
-      json(),
-      // @ts-ignore
-      commonjs()
-    ]
-  });
+      },
+      resolve: {
+        extensions: ['.tsx', '.ts', '.js', '.jsx']
+      }
+    });
 
-  await bundle.write({
-    file: join(distPath, filename),
-    format: 'esm'
+    compiler.run((err, stats) => {
+      let messages;
+      if (err) {
+        if (!err.message) {
+          return reject(err);
+        }
+
+        // _showErrors and __showWarnings are not used but needed for ts
+        messages = formatWebpackMessages({
+          errors: [err.message],
+          warnings: [],
+          _showErrors: true,
+          _showWarnings: true
+        });
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
+      }
+
+      if (messages.errors.length) {
+        // Only keep the first error. Others are often indicative
+        // of the same problem, but confuse the reader with noise.
+        if (messages.errors.length > 1) {
+          messages.errors.length = 1;
+        }
+        return reject(new Error(messages.errors.join('\n\n')));
+      }
+      if (
+        process.env.CI &&
+        (typeof process.env.CI !== 'string' ||
+          process.env.CI.toLowerCase() !== 'false') &&
+        messages.warnings.length
+      ) {
+        console.log(
+          chalk.yellow(
+            '\nTreating warnings as errors because process.env.CI = true.\n' +
+              'Most CI servers set it automatically.\n'
+          )
+        );
+        return reject(new Error(messages.warnings.join('\n\n')));
+      }
+
+      return resolve({
+        stats,
+        warnings: messages.warnings
+      });
+    });
   });
-};
+}
