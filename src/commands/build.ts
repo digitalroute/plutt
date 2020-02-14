@@ -48,6 +48,8 @@ Make sure that there exists a src/ directory with an index.js`;
   };
 
   async run() {
+    process.env.NODE_ENV = 'production';
+
     // 1. Read flags and config
     const { flags } = this.parse(Build);
     const { sourceDirectory, verbose } = flags;

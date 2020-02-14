@@ -1,7 +1,7 @@
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
 import chalk from 'chalk';
-
 import webpack from 'webpack';
+import configFactory from '../config/webpack-config';
 
 export default function(
   entryPoint: string,
@@ -9,36 +9,39 @@ export default function(
   filename: string
 ) {
   return new Promise((resolve, reject) => {
-    const compiler = webpack({
-      mode: 'development',
-      entry: entryPoint,
-      output: {
-        library: 'hello',
-        libraryTarget: 'commonjs2',
-        filename,
-        path: distPath
-      },
-      module: {
-        rules: [
-          {
-            test: /\.tsx?$/,
-            use: 'ts-loader',
-            exclude: /node_modules/
-          },
-          {
-            exclude: /node_modules/,
-            test: /\.jsx?$/,
-            loader: 'babel-loader',
-            options: {
-              presets: ['react-app']
-            }
-          }
-        ]
-      },
-      resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.jsx']
-      }
-    });
+    const compiler = webpack(configFactory('production'));
+    // const compiler = webpack({
+    //   mode: 'development',
+    //   entry: entryPoint,
+    //   output: {
+    //     library: 'hello',
+    //     libraryTarget: 'commonjs2',
+    //     filename,
+    //     path: distPath
+    //   },
+    //   module: {
+    //     rules: [
+    //       {
+    //         test: /\.tsx?$/,
+    //         use: 'ts-loader',
+    //         exclude: /node_modules/
+    //       },
+    //       {
+    //         exclude: /node_modules/,
+    //         test: /\.jsx?$/,
+    //         loader: 'babel-loader',
+    //         options: {
+    //           presets: ['react-app'],
+    //           cacheDirectory: true,
+    //           highlightCode: true
+    //         }
+    //       }
+    //     ]
+    //   },
+    //   resolve: {
+    //     extensions: ['.tsx', '.ts', '.js', '.jsx']
+    //   }
+    // });
 
     compiler.run((err, stats) => {
       let messages;

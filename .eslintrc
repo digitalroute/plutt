@@ -3,6 +3,7 @@
   "rules": {
     "max-params": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
-    "unicorn/explicit-length-check": 0
+    "unicorn/explicit-length-check": 0,
+    "radix": 0
   }
 }
