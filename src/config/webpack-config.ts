@@ -8,6 +8,7 @@ import ManifestPlugin from 'webpack-manifest-plugin';
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
 import paths, { moduleFileExtensions } from './paths';
+import { ESModuleEmitter } from './es-module-webpack-plugin';
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
@@ -28,7 +29,9 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
-module.exports = function(webpackEnv: 'development' | 'production') {
+export default function(
+  webpackEnv: 'development' | 'production'
+): webpack.Configuration {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
 
@@ -46,15 +49,13 @@ module.exports = function(webpackEnv: 'development' | 'production') {
   // Webpack uses `publicPath` to determine where the app is being served from.
   // It requires a trailing slash, or the file assets will get an incorrect path.
   // In development, we always serve from the root. This makes config easier.
-  const publicPath = isEnvProduction
-    ? paths.servedPath
-    : isEnvDevelopment && '/';
+  const publicPath = isEnvProduction ? paths.servedPath : '/';
 
   // Get environment variables to inject into our app.
   const env = getClientEnvironment();
 
   return {
-    mode: isEnvProduction ? 'production' : isEnvDevelopment && 'development',
+    mode: isEnvProduction ? 'production' : 'development',
     // Stop compilation early in production
     bail: isEnvProduction,
     devtool: isEnvProduction
@@ -72,34 +73,30 @@ module.exports = function(webpackEnv: 'development' | 'production') {
       // In development, it does not produce real files.
       filename: isEnvProduction
         ? 'static/js/[name].[contenthash:8].js'
-        : isEnvDevelopment && 'static/js/bundle.js',
+        : 'static/js/bundle.js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
       chunkFilename: isEnvProduction
         ? 'static/js/[name].[contenthash:8].chunk.js'
-        : isEnvDevelopment && 'static/js/[name].chunk.js',
+        : 'static/js/[name].chunk.js',
       // We inferred the "public path" (such as / or /my-project) from homepage.
       // We use "/" in development.
-      publicPath: publicPath,
+      publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: isEnvProduction
-        ? (info) =>
-            path
-              .relative(paths.appSrc, info.absoluteResourcePath)
-              .replace(/\\/g, '/')
-        : isEnvDevelopment &&
-          ((info) =>
-            path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      devtoolModuleFilenameTemplate: (info: any) =>
+        path
+          .relative(paths.appSrc, info.absoluteResourcePath)
+          .replace(/\\/g, '/'),
       // Prevents conflicts when multiple Webpack runtimes (from different apps)
       // are used on the same page.
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
       // this defaults to 'window', but by setting it to 'this' then
       // module chunks which are built will work in web workers as well.
       globalObject: 'this',
-      // Julius: Make sure that the output is a commonjs module
+      // Julius addition: Make sure that the output is a commonjs module
       library: 'default',
-      libraryTarget: 'commonjs'
+      libraryTarget: 'commonjs2'
     },
     optimization: {
       minimize: isEnvProduction,
@@ -309,6 +306,7 @@ module.exports = function(webpackEnv: 'development' | 'production') {
       ]
     },
     plugins: [
+      new ESModuleEmitter({}),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
       new ModuleNotFoundPlugin(paths.appPath),
@@ -332,10 +330,10 @@ module.exports = function(webpackEnv: 'development' | 'production') {
       //   can be used to reconstruct the HTML if necessary
       new ManifestPlugin({
         fileName: 'asset-manifest.json',
-        publicPath: publicPath,
+        publicPath,
         generate: (seed, files, entrypoints) => {
-          const manifestFiles = files.reduce((manifest, file) => {
-            manifest[file.name] = file.path;
+          const manifestFiles = files.reduce((manifest: any, file: any) => {
+            manifest[file.name as string] = file.path;
             return manifest;
           }, seed);
           const entrypointFiles = entrypoints.main.filter(
@@ -392,4 +390,4 @@ module.exports = function(webpackEnv: 'development' | 'production') {
     // our own hints via the FileSizeReporter
     performance: false
   };
-};
+}

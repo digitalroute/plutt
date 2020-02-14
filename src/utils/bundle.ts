@@ -40,5 +40,5 @@ export default async ({
   );
 
   // 3. Compile wrapper
-  await bundleWrapper(useTypescript, projectDirectory, hostPath, childFileName);
+  // await bundleWrapper(useTypescript, projectDirectory, hostPath, childFileName);
 };

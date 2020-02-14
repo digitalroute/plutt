@@ -42,7 +42,7 @@ Make sure that there exists a src/ directory with an index.js`;
     }),
     verbose: flags.boolean({
       char: 'v',
-      description: 'Prints extra information. Usefull for debuging.',
+      description: 'Prints extra information. Useful for debuging.',
       default: false
     })
   };
@@ -70,15 +70,15 @@ Make sure that there exists a src/ directory with an index.js`;
     const { config } = cosmicConfigResult;
 
     // 2. Verify that the correct files exists
-    try {
-      await Promise.all([
-        verifyPackageJsonExists(projectDirectory),
-        verifySourceDirectory(projectDirectory, sourceDirectory),
-        verifyIndexFile(projectDirectory, sourceDirectory)
-      ]);
-    } catch (error) {
-      this.error(error);
-    }
+    // try {
+    //   await Promise.all([
+    //     verifyPackageJsonExists(projectDirectory),
+    //     verifySourceDirectory(projectDirectory, sourceDirectory),
+    //     verifyIndexFile(projectDirectory, sourceDirectory)
+    //   ]);
+    // } catch (error) {
+    //   this.error(error);
+    // }
 
     // 3. Verify that the correct fields exists
     const packageJsonPath = join(projectDirectory, 'package.json');

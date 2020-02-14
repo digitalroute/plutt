@@ -61,20 +61,20 @@ export default async (
 
   // 6. Compile with babel
   const fileName = `${name}.${version}.js`;
-  const bundleCommonJS = await promisify(readFile)(
-    join(bundleDist, 'child-bundle.js')
-  );
+  // const bundleCommonJS = await promisify(readFile)(
+  //   join(bundleDist, 'child-bundle.js')
+  // );
 
-  const babelResult = await transformAsync(bundleCommonJS.toString(), {
-    plugins: ['transform-commonjs-es2015-modules'],
-    compact: true
-  });
+  // const babelResult = await transformAsync(bundleCommonJS.toString(), {
+  //   plugins: ['transform-commonjs-es2015-modules'],
+  //   compact: true
+  // });
 
-  const code = babelResult?.code;
-  if (!code) throw new Error('Error compiling es module from micro app');
+  // const code = babelResult?.code;
+  // if (!code) throw new Error('Error compiling es module from micro app');
 
-  await promisify(mkdir)(finalDist);
-  await promisify(writeFile)(join(finalDist, fileName), code);
+  // await promisify(mkdir)(finalDist);
+  // await promisify(writeFile)(join(finalDist, fileName), code);
 
   return { fileName, useTypescript };
 };
