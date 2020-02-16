@@ -4,11 +4,6 @@ import { readJson } from 'fs-extra';
 import { cosmiconfig } from 'cosmiconfig';
 import chalk from 'chalk';
 
-import {
-  verifyPackageJsonExists,
-  verifySourceDirectory,
-  verifyIndexFile
-} from '../utils/verify';
 import bundle from '../utils/bundle';
 
 process.env.BABEL_ENV = 'production';
@@ -55,7 +50,7 @@ Make sure that there exists a src/ directory with an index.js`;
     const { sourceDirectory, verbose } = flags;
     const projectDirectory = process.cwd();
 
-    const explorer = await cosmiconfig('plutt');
+    const explorer = cosmiconfig('plutt');
     const cosmicConfigResult = await explorer
       .search(projectDirectory)
       .catch(this.error);
@@ -69,18 +64,7 @@ Make sure that there exists a src/ directory with an index.js`;
 
     const { config } = cosmicConfigResult;
 
-    // 2. Verify that the correct files exists
-    // try {
-    //   await Promise.all([
-    //     verifyPackageJsonExists(projectDirectory),
-    //     verifySourceDirectory(projectDirectory, sourceDirectory),
-    //     verifyIndexFile(projectDirectory, sourceDirectory)
-    //   ]);
-    // } catch (error) {
-    //   this.error(error);
-    // }
-
-    // 3. Verify that the correct fields exists
+    // 2. Verify that the correct fields exists
     const packageJsonPath = join(projectDirectory, 'package.json');
     const packageJson = await readJson(packageJsonPath);
 
@@ -103,7 +87,7 @@ Make sure that there exists a src/ directory with an index.js`;
       );
     }
 
-    // 4. Bundle child and wrapper
+    // 3. Bundle child and wrapper
     this.log('Creating an optimized production build...');
     try {
       await bundle({

@@ -12,13 +12,13 @@ export class ESModuleEmitter implements Plugin {
     compiler.hooks.emit.tap('ESModuleEmitter', (compilation) => {
       const mainAsset = Object.entries(compilation.assets).find(
         ([asset_name]) => extname(asset_name) === '.js'
-      );
+      ) as [any, any];
 
       if (!mainAsset) {
         return;
       }
 
-      const [_name, main] = mainAsset;
+      const [, main] = mainAsset;
 
       const rawAsset = main.children[0]._value;
       main.children[0]._value = rawAsset.replace(

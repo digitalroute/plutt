@@ -30,7 +30,10 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
 export default function(
-  webpackEnv: 'development' | 'production'
+  webpackEnv: 'development' | 'production',
+  entry: string,
+  distPath: string,
+  name?: string
 ): webpack.Configuration {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
@@ -63,17 +66,15 @@ export default function(
         ? 'source-map'
         : false
       : isEnvDevelopment && 'cheap-module-source-map',
-    entry: paths.appIndexJs,
+    entry,
     output: {
       // The build folder.
-      path: isEnvProduction ? paths.appBuild : undefined,
+      path: distPath,
       // Add /* filename */ comments to generated require()s in the output.
       pathinfo: isEnvDevelopment,
       // There will be one main bundle, and one file per asynchronous chunk.
       // In development, it does not produce real files.
-      filename: isEnvProduction
-        ? 'static/js/[name].[contenthash:8].js'
-        : 'static/js/bundle.js',
+      filename: name || '[name].js',
       // TODO: remove this when upgrading to webpack 5
       futureEmitAssets: true,
       // There are also additional JS chunk files if you use code splitting.
@@ -203,7 +204,7 @@ export default function(
               loader: require.resolve('eslint-loader')
             }
           ],
-          include: paths.appSrc
+          include: [paths.appSrc, paths.pluttPath]
         },
         {
           // "oneOf" will traverse all following loaders until one will
@@ -225,7 +226,7 @@ export default function(
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: paths.appSrc,
+              include: [paths.appSrc, paths.pluttPath],
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(

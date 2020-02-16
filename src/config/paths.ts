@@ -8,6 +8,19 @@ const appDirectory = fs.realpathSync(process.cwd());
 const resolveApp = (relativePath: string) =>
   path.resolve(appDirectory, relativePath);
 
+const templateDirectory = path.resolve(__dirname, '..', '..', 'templates');
+function resolveTemplate(template: string) {
+  const useTypeScript = fs.existsSync(resolveApp('tsconfig.json'));
+  const extension = useTypeScript ? '.tsx' : '.jsx';
+  return path.resolve(templateDirectory, template + extension);
+}
+
+function resolveTemplateIntermediate(template: string) {
+  const useTypeScript = fs.existsSync(resolveApp('tsconfig.json'));
+  const extension = useTypeScript ? '.tsx' : '.jsx';
+  return path.resolve(appDirectory, '.plutt', template + extension);
+}
+
 const envPublicUrl = process.env.PUBLIC_URL;
 
 function ensureSlash(inputPath: string, needsSlash: boolean) {
@@ -71,7 +84,9 @@ const resolveModule = (
 export default {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
-  appBuild: resolveApp('build'),
+  pluttPath: resolveApp('.plutt'),
+  childBuild: resolveApp('build/child'),
+  wrapperBuild: resolveApp('build/wrapper'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
@@ -82,5 +97,9 @@ export default {
   proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
-  servedPath: getServedPath(resolveApp('package.json'))
+  servedPath: getServedPath(resolveApp('package.json')),
+  childTemplate: resolveTemplate('child'),
+  wrapperTemplate: resolveTemplate('wrapper'),
+  childTemplateIntermediate: resolveTemplateIntermediate('child'),
+  wrapperTemplateIntermediate: resolveTemplateIntermediate('wrapper')
 };
