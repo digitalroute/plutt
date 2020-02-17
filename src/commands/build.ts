@@ -1,3 +1,7 @@
+// Do this as the first thing so that any code reading it knows the right env.
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+
 import { Command, flags } from '@oclif/command';
 import { join } from 'path';
 import { readJson } from 'fs-extra';
@@ -5,9 +9,6 @@ import { cosmiconfig } from 'cosmiconfig';
 import chalk from 'chalk';
 
 import bundle from '../utils/bundle';
-
-process.env.BABEL_ENV = 'production';
-process.env.NODE_ENV = 'production';
 
 type Config = {
   hostPath: string;
@@ -43,8 +44,6 @@ Make sure that there exists a src/ directory with an index.js`;
   };
 
   async run() {
-    process.env.NODE_ENV = 'production';
-
     // 1. Read flags and config
     const { flags } = this.parse(Build);
     const { sourceDirectory, verbose } = flags;
@@ -90,15 +89,7 @@ Make sure that there exists a src/ directory with an index.js`;
     // 3. Bundle child and wrapper
     this.log('Creating an optimized production build...');
     try {
-      await bundle({
-        projectDirectory,
-        sourceDirectory,
-        version,
-        name,
-        hostPath,
-        logger: this,
-        verbose
-      });
+      await bundle();
     } catch (error) {
       this.error(error);
     }

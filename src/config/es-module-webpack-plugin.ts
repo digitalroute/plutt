@@ -22,7 +22,7 @@ export class ESModuleEmitter implements Plugin {
 
       const rawAsset = main.children[0]._value;
       main.children[0]._value = rawAsset.replace(
-        'module.exports=',
+        /module\.exports ?=/,
         'export default '
       );
     });

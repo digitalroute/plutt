@@ -85,6 +85,7 @@ export default {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   pluttPath: resolveApp('.plutt'),
+  buildPath: resolveApp('build'),
   childBuild: resolveApp('build/child'),
   wrapperBuild: resolveApp('build/wrapper'),
   appIndexJs: resolveModule(resolveApp, 'src/index'),

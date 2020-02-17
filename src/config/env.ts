@@ -1,10 +1,9 @@
 'use strict';
 
-// TODO: Remove file
-
 const fs = require('fs');
 const path = require('path');
-const paths = require('./paths.ts');
+import paths from './paths';
+const appPackageJson = require(paths.appPackageJson);
 
 // Make sure that including paths.js after env.js will read .env variables.
 delete require.cache[require.resolve('./paths')];
@@ -62,6 +61,10 @@ process.env.NODE_PATH = (process.env.NODE_PATH || '')
 // injected into the application via DefinePlugin in Webpack configuration.
 const REACT_APP = /^REACT_APP_/i;
 
+const { name, version } = appPackageJson;
+const childFileName = `${name}.v${version}.js`;
+const hostPath = paths.servedPath + childFileName;
+
 function getClientEnvironment() {
   const raw = Object.keys(process.env)
     .filter((key) => REACT_APP.test(key))
@@ -73,22 +76,23 @@ function getClientEnvironment() {
       {
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.
-        NODE_ENV: process.env.NODE_ENV || 'development'
+        NODE_ENV: process.env.NODE_ENV || 'development',
+        HOST_PATH: hostPath
         // Useful for resolving the correct path to static assets in `public`.
         // For example, <img src={process.env.PUBLIC_URL + '/img/logo.png'} />.
         // This should only be used as an escape hatch. Normally you would put
         // images into the `src` and `import` them in code to get their paths.
-      }
+      } as any
     );
   // Stringify all values so we can feed into Webpack DefinePlugin
   const stringified = {
-    'process.env': Object.keys(raw).reduce((env, key) => {
+    'process.env': Object.keys(raw as any).reduce((env, key: string) => {
       env[key] = JSON.stringify(raw[key]);
       return env;
-    }, {})
+    }, {} as any)
   };
 
   return { raw, stringified };
 }
 
-module.exports = getClientEnvironment;
+export default getClientEnvironment;

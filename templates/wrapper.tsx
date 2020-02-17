@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './child';
+import App from '../child';
 
 type ExtractProps<A> = A extends React.Component<infer P, any> ? P : never;
 
@@ -16,15 +16,15 @@ export default class Wrapper extends React.Component<ExtractProps<App>> {
 
     this.mountRef = React.createRef();
 
-    // @ts-ignore
-    import(/* webpackIgnore: true */ '<remote.js>').then(
-      ({ default: mountApp }) => {
-        this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
-        this.mountApp = mountApp;
+    const hostPath = process.env.HOST_PATH;
 
-        mountApp(this.shadow, props);
-      }
-    );
+    // @ts-ignore
+    import(/* webpackIgnore: true */ hostPath).then(({ default: mountApp }) => {
+      this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
+      this.mountApp = mountApp;
+
+      mountApp(this.shadow, props);
+    });
   }
 
   componentWillUnmount() {

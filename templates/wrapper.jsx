@@ -7,10 +7,11 @@ export default class Wrapper extends React.Component {
 
     this.mountRef = React.createRef();
 
-    import(/* webpackIgnore: true */ '<remote.js>').then(mod => {
-      const {
-        default: { default: mountApp }
-      } = mod;
+    // const hostPath = process.env.HOST_PATH;
+
+    import(/* webpackIgnore: true */ process.env.HOST_PATH).then((mod) => {
+      const { default: mountApp } = mod;
+
       this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
       this.mountApp = mountApp;
 

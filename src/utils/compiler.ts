@@ -3,43 +3,16 @@ import chalk from 'chalk';
 import webpack from 'webpack';
 import configFactory from '../config/webpack-config';
 
-export default function(entry: string, distPath: string, name: string) {
+export default function(
+  isChildBundle: boolean,
+  entry: string,
+  distPath: string,
+  name: string
+) {
   return new Promise((resolve, reject) => {
     const compiler = webpack(
-      configFactory('production', entry, distPath, name)
+      configFactory('production', isChildBundle, entry, distPath, name)
     );
-    // const compiler = webpack({
-    //   mode: 'development',
-    //   entry: entryPoint,
-    //   output: {
-    //     library: 'hello',
-    //     libraryTarget: 'commonjs2',
-    //     filename,
-    //     path: distPath
-    //   },
-    //   module: {
-    //     rules: [
-    //       {
-    //         test: /\.tsx?$/,
-    //         use: 'ts-loader',
-    //         exclude: /node_modules/
-    //       },
-    //       {
-    //         exclude: /node_modules/,
-    //         test: /\.jsx?$/,
-    //         loader: 'babel-loader',
-    //         options: {
-    //           presets: ['react-app'],
-    //           cacheDirectory: true,
-    //           highlightCode: true
-    //         }
-    //       }
-    //     ]
-    //   },
-    //   resolve: {
-    //     extensions: ['.tsx', '.ts', '.js', '.jsx']
-    //   }
-    // });
 
     compiler.run((err, stats) => {
       let messages;
