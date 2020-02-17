@@ -46,7 +46,7 @@ export default function(
     );
   }
 
-  const modules = getModules(appSrc);
+  const modules: any = getModules(appSrc);
 
   console.log(appSrc);
 

@@ -1,6 +1,3 @@
-/* eslint-disable valid-jsdoc */
-'use strict';
-
 const fs = require('fs');
 const path = require('path');
 const paths = require('./paths.ts');
@@ -8,12 +5,10 @@ const chalk = require('react-dev-utils/chalk');
 // eslint-disable-next-line node/no-extraneous-require
 const resolve = require('resolve');
 
-/**
+/*
  * Get additional module paths based on the baseUrl of a compilerOptions object.
- *
- * @param {Object} options
  */
-function getAdditionalModulePaths(appSrc, options = {}) {
+function getAdditionalModulePaths(appSrc: string, options: any = {}) {
   const baseUrl = options.baseUrl;
 
   // We need to explicitly check for null and undefined (and not a falsy value) because
@@ -59,12 +54,10 @@ function getAdditionalModulePaths(appSrc, options = {}) {
   );
 }
 
-/**
+/*
  * Get webpack aliases based on the baseUrl of a compilerOptions object.
- *
- * @param {*} options
  */
-function getWebpackAliases(options = {}) {
+function getWebpackAliases(options: any = {}) {
   const baseUrl = options.baseUrl;
 
   if (!baseUrl) {
@@ -80,12 +73,10 @@ function getWebpackAliases(options = {}) {
   }
 }
 
-/**
+/*
  * Get jest aliases based on the baseUrl of a compilerOptions object.
- *
- * @param {*} options
  */
-function getJestAliases(options = {}) {
+function getJestAliases(options: any = {}) {
   const baseUrl = options.baseUrl;
 
   if (!baseUrl) {
@@ -101,7 +92,7 @@ function getJestAliases(options = {}) {
   }
 }
 
-function getModules(appSrc) {
+function getModules(appSrc: string) {
   // Check if TypeScript is setup
   const hasTsConfig = fs.existsSync(paths.appTsConfig);
   const hasJsConfig = fs.existsSync(paths.appJsConfig);
@@ -141,4 +132,4 @@ function getModules(appSrc) {
   };
 }
 
-module.exports = getModules;
+export default getModules;
