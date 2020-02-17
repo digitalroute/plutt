@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
-const paths = require('./paths.ts');
-const chalk = require('react-dev-utils/chalk');
+import fs from 'fs';
+import path from 'path';
+import paths from './paths';
+import chalk from 'chalk';
 // eslint-disable-next-line node/no-extraneous-require
 const resolve = require('resolve');
 
