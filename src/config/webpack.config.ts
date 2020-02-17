@@ -12,7 +12,6 @@ import { ESModuleEmitter } from './es-module-webpack-plugin';
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-// @ts-ignore
 import getModules from './modules';
 
 const appPackageJson = require(paths.appPackageJson);
