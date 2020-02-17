@@ -5,7 +5,7 @@ import url from 'url';
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
 const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath: string) =>
+export const resolveApp = (relativePath: string) =>
   path.resolve(appDirectory, relativePath);
 
 const templateDirectory = path.resolve(__dirname, '..', '..', 'templates');
@@ -64,22 +64,6 @@ export const moduleFileExtensions = [
   'jsx'
 ];
 
-// Resolve file paths in the same order as webpack
-const resolveModule = (
-  resolveFn: (relativePath: string) => string,
-  filePath: string
-) => {
-  const extension = moduleFileExtensions.find((extension) =>
-    fs.existsSync(resolveFn(`${filePath}.${extension}`))
-  );
-
-  if (extension) {
-    return resolveFn(`${filePath}.${extension}`);
-  }
-
-  return resolveFn(`${filePath}.js`);
-};
-
 // config after eject: we're in ./config/
 export default {
   dotenv: resolveApp('.env'),
@@ -88,14 +72,11 @@ export default {
   buildPath: resolveApp('build'),
   childBuild: resolveApp('build/child'),
   wrapperBuild: resolveApp('build/wrapper'),
-  appIndexJs: resolveModule(resolveApp, 'src/index'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
   appJsConfig: resolveApp('jsconfig.json'),
   yarnLockFile: resolveApp('yarn.lock'),
-  testsSetup: resolveModule(resolveApp, 'src/setupTests'),
-  proxySetup: resolveApp('src/setupProxy.js'),
   appNodeModules: resolveApp('node_modules'),
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),

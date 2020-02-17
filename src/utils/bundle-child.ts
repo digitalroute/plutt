@@ -2,7 +2,7 @@ import { copy } from 'fs-extra';
 import compiler from './compiler';
 import paths from '../config/paths';
 
-export default async (): Promise<void> => {
+export default async (sourceDirectory: string): Promise<void> => {
   // 1. Copy template
   await copy(paths.childTemplate, paths.childTemplateIntermediate);
 
@@ -16,6 +16,7 @@ export default async (): Promise<void> => {
     true,
     paths.childTemplateIntermediate,
     paths.childBuild,
+    sourceDirectory,
     fileName
   );
 };

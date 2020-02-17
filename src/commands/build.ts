@@ -9,6 +9,7 @@ import { cosmiconfig } from 'cosmiconfig';
 import chalk from 'chalk';
 
 import bundle from '../utils/bundle';
+import { resolveApp } from '../config/paths';
 
 type Config = {
   hostPath: string;
@@ -46,7 +47,7 @@ Make sure that there exists a src/ directory with an index.js`;
   async run() {
     // 1. Read flags and config
     const { flags } = this.parse(Build);
-    const { sourceDirectory, verbose } = flags;
+    const { sourceDirectory } = flags;
     const projectDirectory = process.cwd();
 
     const explorer = cosmiconfig('plutt');
@@ -89,7 +90,7 @@ Make sure that there exists a src/ directory with an index.js`;
     // 3. Bundle child and wrapper
     this.log('Creating an optimized production build...');
     try {
-      await bundle();
+      await bundle(resolveApp(sourceDirectory));
     } catch (error) {
       this.error(error);
     }

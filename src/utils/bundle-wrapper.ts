@@ -1,12 +1,8 @@
-import { remove, copy } from 'fs-extra';
-import { readFile, writeFile } from 'fs';
-import { promisify } from 'util';
+import { copy } from 'fs-extra';
 import compiler from './compiler';
-import { join } from 'path';
 import paths from '../config/paths';
-const urlJoin = require('url-join');
 
-export default async () => {
+export default async (sourceDirectory: string) => {
   // 1.Copy wrapper to build directory
 
   // await remove(buildDestination);
@@ -26,6 +22,7 @@ export default async () => {
     false,
     paths.wrapperTemplateIntermediate,
     paths.wrapperBuild,
+    sourceDirectory,
     'index.js'
   );
 };

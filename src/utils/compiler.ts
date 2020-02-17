@@ -1,17 +1,25 @@
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
 import chalk from 'chalk';
 import webpack from 'webpack';
-import configFactory from '../config/webpack-config';
+import configFactory from '../config/webpack.config';
 
 export default function(
   isChildBundle: boolean,
   entry: string,
   distPath: string,
+  sourceDirectory: string,
   name: string
 ) {
   return new Promise((resolve, reject) => {
     const compiler = webpack(
-      configFactory('production', isChildBundle, entry, distPath, name)
+      configFactory(
+        'production',
+        isChildBundle,
+        entry,
+        distPath,
+        sourceDirectory,
+        name
+      )
     );
 
     compiler.run((err, stats) => {

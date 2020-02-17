@@ -13,7 +13,7 @@ const resolve = require('resolve');
  *
  * @param {Object} options
  */
-function getAdditionalModulePaths(options = {}) {
+function getAdditionalModulePaths(appSrc, options = {}) {
   const baseUrl = options.baseUrl;
 
   // We need to explicitly check for null and undefined (and not a falsy value) because
@@ -37,8 +37,8 @@ function getAdditionalModulePaths(options = {}) {
   }
 
   // Allow the user set the `baseUrl` to `appSrc`.
-  if (path.relative(paths.appSrc, baseUrlResolved) === '') {
-    return [paths.appSrc];
+  if (path.relative(appSrc, baseUrlResolved) === '') {
+    return [appSrc];
   }
 
   // If the path is equal to the root directory we ignore it here.
@@ -101,7 +101,7 @@ function getJestAliases(options = {}) {
   }
 }
 
-function getModules() {
+function getModules(appSrc) {
   // Check if TypeScript is setup
   const hasTsConfig = fs.existsSync(paths.appTsConfig);
   const hasJsConfig = fs.existsSync(paths.appJsConfig);
@@ -131,7 +131,7 @@ function getModules() {
   config = config || {};
   const options = config.compilerOptions || {};
 
-  const additionalModulePaths = getAdditionalModulePaths(options);
+  const additionalModulePaths = getAdditionalModulePaths(appSrc, options);
 
   return {
     additionalModulePaths: additionalModulePaths,
@@ -141,4 +141,4 @@ function getModules() {
   };
 }
 
-module.exports = getModules();
+module.exports = getModules;

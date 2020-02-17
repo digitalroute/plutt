@@ -3,7 +3,6 @@ import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
 import resolve from 'resolve';
-import TerserPlugin from 'terser-webpack-plugin';
 // import ManifestPlugin from 'webpack-manifest-plugin';
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
@@ -13,7 +12,7 @@ import { ESModuleEmitter } from './es-module-webpack-plugin';
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const ForkTsCheckerWebpackPlugin = require('react-dev-utils/ForkTsCheckerWebpackPlugin');
 const typescriptFormatter = require('react-dev-utils/typescriptFormatter');
-const modules = require('./modules');
+const getModules = require('./modules');
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -34,7 +33,8 @@ export default function(
   isChildBundle: boolean,
   entry: string,
   distPath: string,
-  name?: string
+  appSrc: string,
+  name: string
 ): webpack.Configuration {
   const isEnvDevelopment = webpackEnv === 'development';
   const isEnvProduction = webpackEnv === 'production';
@@ -44,6 +44,10 @@ export default function(
       'Development mode is not supported. Try compiling in production mode.'
     );
   }
+
+  const modules = getModules(appSrc);
+
+  console.log(appSrc);
 
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
@@ -122,9 +126,7 @@ export default function(
         .map((ext) => `.${ext}`)
         .filter((ext) => useTypeScript || !ext.includes('ts')),
       alias: {
-        // Support React Native Web
-        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-        'react-native': 'react-native-web',
+        '@plutt': appSrc,
         // Allows for better profiling with ReactDevTools
         ...(isEnvProductionProfile && {
           'react-dom$': 'react-dom/profiling',
