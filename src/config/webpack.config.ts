@@ -91,9 +91,7 @@ export default function(
       publicPath,
       // Point sourcemap entries to original disk location (format as URL on Windows)
       devtoolModuleFilenameTemplate: (info: any) =>
-        path
-          .relative(paths.appSrc, info.absoluteResourcePath)
-          .replace(/\\/g, '/'),
+        path.relative(appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
       // Prevents conflicts when multiple Webpack runtimes (from different apps)
       // are used on the same page.
       jsonpFunction: `webpackJsonp${appPackageJson.name}`,
@@ -140,7 +138,7 @@ export default function(
         // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
         // please link the files into your node_modules/ and let module-resolution kick in.
         // Make sure your source files are compiled, as they will not be processed in any way.
-        new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson])
+        new ModuleScopePlugin(appSrc, [paths.appPackageJson])
       ]
     },
     module: {
@@ -165,7 +163,7 @@ export default function(
               loader: require.resolve('eslint-loader')
             }
           ],
-          include: [paths.appSrc, paths.pluttPath]
+          include: [appSrc, paths.pluttPath]
         },
         {
           // "oneOf" will traverse all following loaders until one will
@@ -187,7 +185,7 @@ export default function(
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.
             {
               test: /\.(js|mjs|jsx|ts|tsx)$/,
-              include: [paths.appSrc, paths.pluttPath],
+              include: [appSrc, paths.pluttPath],
               loader: require.resolve('babel-loader'),
               options: {
                 customize: require.resolve(

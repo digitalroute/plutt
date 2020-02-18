@@ -57,7 +57,7 @@ function getAdditionalModulePaths(appSrc: string, options: any = {}) {
 /*
  * Get webpack aliases based on the baseUrl of a compilerOptions object.
  */
-function getWebpackAliases(options: any = {}) {
+function getWebpackAliases(appSrc: string, options: any = {}) {
   const baseUrl = options.baseUrl;
 
   if (!baseUrl) {
@@ -68,7 +68,7 @@ function getWebpackAliases(options: any = {}) {
 
   if (path.relative(paths.appPath, baseUrlResolved) === '') {
     return {
-      src: paths.appSrc
+      src: appSrc
     };
   }
 }
@@ -126,7 +126,7 @@ function getModules(appSrc: string) {
 
   return {
     additionalModulePaths: additionalModulePaths,
-    webpackAliases: getWebpackAliases(options),
+    webpackAliases: getWebpackAliases(appSrc, options),
     jestAliases: getJestAliases(options),
     hasTsConfig
   };
