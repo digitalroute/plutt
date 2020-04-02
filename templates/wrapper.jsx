@@ -20,7 +20,7 @@ export default class Wrapper extends React.Component {
   }
 
   componentWillUnmount() {
-    ReactDOM.unmountComponentAtNode(this.shadow);
+    if (this.shadow) ReactDOM.unmountComponentAtNode(this.shadow);
   }
 
   render() {
