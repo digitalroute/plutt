@@ -11,7 +11,8 @@ export class ESModuleEmitter implements Plugin {
   apply(compiler: Compiler) {
     compiler.hooks.emit.tap('ESModuleEmitter', (compilation) => {
       const mainAsset = Object.entries(compilation.assets).find(
-        ([asset_name]) => extname(asset_name) === '.js'
+        ([asset_name]) =>
+          extname(asset_name) === '.js' && !asset_name.includes('worker')
       ) as [any, any];
 
       if (!mainAsset) {

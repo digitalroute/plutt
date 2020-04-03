@@ -25,7 +25,7 @@ export default class Wrapper extends React.Component {
 
   render() {
     if (this.mountApp) {
-      this.mountApp(this.shadow, this.props, () => undefined);
+      this.mountApp(this.shadow, this.props);
     }
 
     return <div ref={this.mountRef}></div>;
