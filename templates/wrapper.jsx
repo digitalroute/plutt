@@ -6,16 +6,16 @@ export default class Wrapper extends React.Component {
     super(props);
 
     this.mountRef = React.createRef();
+  }
 
-    // const hostPath = process.env.HOST_PATH;
-
+  componentDidMount() {
     import(/* webpackIgnore: true */ process.env.HOST_PATH).then((mod) => {
       const { default: mountApp } = mod;
 
       this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
       this.mountApp = mountApp;
 
-      mountApp(this.shadow, props);
+      mountApp(this.shadow, this.props);
     });
   }
 
