@@ -19,13 +19,12 @@ $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
 running command...
 $ plutt (-v|--version|version)
-@digitalroute/plutt/0.0.0-semantically-released darwin-x64 node-v13.9.0
+@digitalroute/plutt/0.0.0-semantically-released darwin-x64 node-v13.10.1
 $ plutt --help [COMMAND]
 USAGE
   $ plutt COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
