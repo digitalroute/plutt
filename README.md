@@ -25,6 +25,7 @@ USAGE
   $ plutt COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
