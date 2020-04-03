@@ -27,9 +27,9 @@ function chooseDefault(
 
 export default class Build extends Command {
   static description = `
-Build a plutt project
+Build a plutt project.
 
-Make sure that there exists a src/ directory with an index.js`;
+Make sure that there exists a src/ directory with an index.js.`;
 
   static flags = {
     sourceDirectory: flags.string({
