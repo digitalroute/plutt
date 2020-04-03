@@ -1,57 +1,100 @@
-import { Command } from '@oclif/command';
+// Do this as the first thing so that any code reading it knows the right env.
+process.env.BABEL_ENV = 'production';
+process.env.NODE_ENV = 'production';
+
+import { Command, flags } from '@oclif/command';
 import { join } from 'path';
 import { readJson } from 'fs-extra';
-import {
-  verifyPackageJsonExists,
-  verifyHostPath,
-  verifySourceDirectory,
-  verifyIndexFile,
-  verifyNameField,
-  verifyVersionField
-} from '../utils/verify';
-import bundleChild from '../utils/bundle-child';
-import bundleWrapper from '../utils/bundle-wrapper';
+import { cosmiconfig } from 'cosmiconfig';
+import chalk from 'chalk';
+
+import bundle from '../utils/bundle';
+import { resolveApp } from '../config/paths';
+
+type Config = {
+  hostPath: string;
+  version: string;
+  name: string;
+};
+
+function chooseDefault(
+  config: Config,
+  packageJson: Config,
+  field: keyof Config
+): string {
+  return config[field] || packageJson[field];
+}
 
 export default class Build extends Command {
   static description = `
-Build a plutt project
+Build a plutt project.
 
-Make sure that there exists a src/ directory with an index.js`;
+Make sure that there exists a src/ directory with an index.js.`;
+
+  static flags = {
+    sourceDirectory: flags.string({
+      char: 's',
+      description: 'The source directory for the plutt project.',
+      default: 'src'
+    }),
+    verbose: flags.boolean({
+      char: 'v',
+      description: 'Prints extra information. Useful for debuging.',
+      default: false
+    })
+  };
 
   async run() {
-    // 1. Verify that the correct files and fields exists
+    // 1. Read flags and config
+    const { flags } = this.parse(Build);
+    const { sourceDirectory } = flags;
     const projectDirectory = process.cwd();
 
-    try {
-      await Promise.all([
-        verifyPackageJsonExists(projectDirectory),
-        verifyHostPath(projectDirectory),
-        verifyNameField(projectDirectory),
-        verifyVersionField(projectDirectory),
-        verifySourceDirectory(projectDirectory),
-        verifyIndexFile(projectDirectory)
-      ]);
-    } catch (error) {
-      this.error(error);
-    }
+    const explorer = cosmiconfig('plutt');
+    const cosmicConfigResult = await explorer
+      .search(projectDirectory)
+      .catch(this.error);
 
-    // 2. Read package.json
+    if (!cosmicConfigResult || cosmicConfigResult.isEmpty)
+      this.error(
+        `Plutt could not find any config in ${chalk.red(
+          'package.json'
+        )} or config file.`
+      );
+
+    const { config } = cosmicConfigResult;
+
+    // 2. Verify that the correct fields exists
     const packageJsonPath = join(projectDirectory, 'package.json');
-    const { hostPath, version, name } = await readJson(packageJsonPath);
+    const packageJson = await readJson(packageJsonPath);
 
-    // 3. Bundle child
-    let childFileName = '';
+    const { hostPath } = config;
+    if (!hostPath) {
+      this.error(
+        `Could not find any configuration for ${chalk.red('hostPath')}`
+      );
+    }
+
+    const name = chooseDefault(config, packageJson, 'name');
+    if (!name) {
+      this.error(`Could not find any configuration for ${chalk.red('name')}`);
+    }
+
+    const version = chooseDefault(config, packageJson, 'version');
+    if (!version) {
+      this.error(
+        `Could not find any configuration for ${chalk.red('version')}`
+      );
+    }
+
+    // 3. Bundle child and wrapper
+    this.log('Creating an optimized production build...');
     try {
-      childFileName = await bundleChild(projectDirectory, version, name);
+      await bundle(resolveApp(sourceDirectory));
     } catch (error) {
       this.error(error);
     }
 
-    // 4. Compile wrapper
-    try {
-      await bundleWrapper(projectDirectory, hostPath, childFileName);
-    } catch (error) {
-      this.error(error);
-    }
+    return this.log(chalk.green('Compiled successfully.'));
   }
 }

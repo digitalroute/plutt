@@ -1,4 +1,4 @@
-# @digitalroute/plutt
+# Plutt
 
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
-* [@digitalroute/plutt](#digitalrouteplutt)
+* [Plutt](#plutt)
 * [Usage](#usage)
 * [Commands](#commands)
 <!-- tocstop -->
@@ -19,7 +19,7 @@ $ npm install -g @digitalroute/plutt
 $ plutt COMMAND
 running command...
 $ plutt (-v|--version|version)
-@digitalroute/plutt/1.0.0 linux-x64 node-v12.14.1
+@digitalroute/plutt/0.0.0-semantically-released darwin-x64 node-v13.10.1
 $ plutt --help [COMMAND]
 USAGE
   $ plutt COMMAND
@@ -35,19 +35,23 @@ USAGE
 
 ## `plutt build`
 
-Build a plutt project
+Build a plutt project.
 
 ```
 USAGE
   $ plutt build
 
-DESCRIPTION
-  Build a plutt project
+OPTIONS
+  -s, --sourceDirectory=sourceDirectory  [default: src] The source directory for the plutt project.
+  -v, --verbose                          Prints extra information. Useful for debuging.
 
-  Make sure that there exists a src/ directory with an index.js
+DESCRIPTION
+  Build a plutt project.
+
+  Make sure that there exists a src/ directory with an index.js.
 ```
 
-_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v1.0.0/src/commands/build.ts)_
+_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/build.ts)_
 
 ## `plutt help [COMMAND]`
 

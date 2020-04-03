@@ -1,41 +1,75 @@
-import { rollup } from 'rollup';
-import { join } from 'path';
-// @ts-ignore
-import * as babel from 'rollup-plugin-babel';
-import * as commonjs from '@rollup/plugin-commonjs';
-import * as resolve from '@rollup/plugin-node-resolve';
-import * as replace from '@rollup/plugin-replace';
+import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages';
+import chalk from 'chalk';
+import webpack from 'webpack';
+import configFactory from '../config/webpack.config';
 
-const NODE_ENV = process.env.NODE_ENV || 'development';
-
-export default async (
-  entryPoint: string,
+export default function(
+  isChildBundle: boolean,
+  entry: string,
   distPath: string,
-  filename: string,
-  external?: string[]
-) => {
-  const bundle = await rollup({
-    input: entryPoint,
-    external,
-    plugins: [
-      // @ts-ignore
-      replace({
-        'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
-      }),
-      babel({
-        exclude: 'node_modules/**',
-        presets: ['@babel/preset-env', '@babel/preset-react'],
-        plugins: ['@babel/plugin-proposal-class-properties']
-      }),
-      // @ts-ignore
-      resolve(),
-      // @ts-ignore
-      commonjs()
-    ]
-  });
+  sourceDirectory: string,
+  name: string
+) {
+  return new Promise((resolve, reject) => {
+    const compiler = webpack(
+      configFactory(
+        'production',
+        isChildBundle,
+        entry,
+        distPath,
+        sourceDirectory,
+        name
+      )
+    );
 
-  await bundle.write({
-    file: join(distPath, filename),
-    format: 'esm'
+    compiler.run((err, stats) => {
+      let messages;
+      if (err) {
+        if (!err.message) {
+          return reject(err);
+        }
+
+        // _showErrors and __showWarnings are not used but needed for ts
+        messages = formatWebpackMessages({
+          errors: [err.message],
+          warnings: [],
+          _showErrors: true,
+          _showWarnings: true
+        });
+      } else {
+        messages = formatWebpackMessages(
+          stats.toJson({ all: false, warnings: true, errors: true })
+        );
+      }
+
+      if (messages.errors.length) {
+        // Only keep the first error. Others are often indicative
+        // of the same problem, but confuse the reader with noise.
+        if (messages.errors.length > 1) {
+          messages.errors.length = 1;
+        }
+        return reject(new Error(messages.errors.join('\n\n')));
+      }
+
+      if (
+        process.env.CI &&
+        (typeof process.env.CI !== 'string' ||
+          process.env.CI.toLowerCase() !== 'false') &&
+        messages.warnings.length
+      ) {
+        console.log(
+          chalk.yellow(
+            '\nTreating warnings as errors because process.env.CI = true.\n' +
+              'Most CI servers set it automatically.\n'
+          )
+        );
+        return reject(new Error(messages.warnings.join('\n\n')));
+      }
+
+      return resolve({
+        stats,
+        warnings: messages.warnings
+      });
+    });
   });
-};
+}
