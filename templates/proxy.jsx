@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-export default class Proxy extends React.Component {
+class Proxy extends React.Component {
   constructor(props) {
     super(props);
 
@@ -35,3 +35,5 @@ export default class Proxy extends React.Component {
 }
 
 Proxy.defaultProps = { shadow: true };
+
+module.exports = Proxy;
