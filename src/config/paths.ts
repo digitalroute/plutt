@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import url from 'url';
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
