@@ -35,7 +35,7 @@ function ensureSlash(inputPath: string, needsSlash: boolean) {
 }
 
 const getPublicUrl = (appPackageJson: string) =>
-  envPublicUrl || require(appPackageJson).homepage;
+  envPublicUrl || require(appPackageJson).plutt?.hostPath;
 
 // We use `PUBLIC_URL` environment variable or "homepage" field to infer
 // "public path" at which the app is served.
@@ -45,9 +45,7 @@ const getPublicUrl = (appPackageJson: string) =>
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
 function getServedPath(appPackageJson: string) {
   const publicUrl = getPublicUrl(appPackageJson);
-  const servedUrl =
-    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
-  return ensureSlash(servedUrl || '', true);
+  return ensureSlash(publicUrl || '', true);
 }
 
 export const moduleFileExtensions = [

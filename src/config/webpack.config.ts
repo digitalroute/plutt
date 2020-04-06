@@ -47,8 +47,6 @@ export default function(
 
   const modules: any = getModules(appSrc);
 
-  console.log(appSrc);
-
   // Variable used for enabling profiling in Production
   // passed into alias object. Uses a flag if passed into the build command
   const isEnvProductionProfile =
