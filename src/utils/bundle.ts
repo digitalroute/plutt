@@ -9,5 +9,5 @@ export default async (sourceDirectory: string) => {
   // 2. Bundle child
   await bundleChild(sourceDirectory);
   // 3. Compile proxy
-  await bundleProxy(sourceDirectory);
+  await bundleProxy();
 };
