@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-export default class Wrapper extends React.Component {
+export default class Proxy extends React.Component {
   constructor(props) {
     super(props);
 
@@ -34,4 +34,4 @@ export default class Wrapper extends React.Component {
   }
 }
 
-Wrapper.defaultProps = { shadow: true };
+Proxy.defaultProps = { shadow: true };

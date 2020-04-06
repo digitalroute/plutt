@@ -68,7 +68,7 @@ export default {
   pluttPath: resolveApp('.plutt'),
   buildPath: resolveApp('build'),
   childBuild: resolveApp('build/child'),
-  wrapperBuild: resolveApp('build/wrapper'),
+  proxyBuild: resolveApp('build/proxy'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -78,7 +78,7 @@ export default {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   childTemplate: resolveTemplate('child'),
-  wrapperTemplate: resolveTemplate('wrapper'),
+  proxyTemplate: resolveTemplate('proxy'),
   childTemplateIntermediate: resolveTemplateIntermediate('child'),
-  wrapperTemplateIntermediate: resolveTemplateIntermediate('wrapper')
+  proxyTemplateIntermediate: resolveTemplateIntermediate('proxy')
 };

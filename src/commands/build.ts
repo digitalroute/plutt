@@ -87,7 +87,7 @@ Make sure that there exists a src/ directory with an index.js.`;
       );
     }
 
-    // 3. Bundle child and wrapper
+    // 3. Bundle child and proxy
     this.log('Creating an optimized production build...');
     try {
       await bundle(resolveApp(sourceDirectory));
