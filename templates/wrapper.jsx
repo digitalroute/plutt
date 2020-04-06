@@ -12,7 +12,9 @@ export default class Wrapper extends React.Component {
     import(/* webpackIgnore: true */ process.env.HOST_PATH).then((mod) => {
       const { default: mountApp } = mod;
 
-      this.shadow = this.mountRef.current.attachShadow({ mode: 'open' });
+      this.shadow = this.props.useShadow
+        ? this.mountRef.current.attachShadow({ mode: 'open' })
+        : this.mountRef.current;
       this.mountApp = mountApp;
 
       mountApp(this.shadow, this.props);
@@ -28,6 +30,8 @@ export default class Wrapper extends React.Component {
       this.mountApp(this.shadow, this.props);
     }
 
-    return <div ref={this.mountRef}></div>;
+    return React.createElement('div', { ref: this.mountRef });
   }
 }
+
+Wrapper.defaultProps = { shadow: false };
