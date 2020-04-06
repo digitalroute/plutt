@@ -5,8 +5,6 @@ import paths from '../config/paths';
 import path from 'path';
 
 export default async () => {
-  console.log(paths.proxyTemplate);
-
   const originalBuffer = await promisify(readFile)(paths.proxyTemplate);
 
   const appPackageJson = require(paths.appPackageJson);
@@ -17,8 +15,6 @@ export default async () => {
   const newFile = originalBuffer
     .toString()
     .replace('process.env.HOST_PATH', `'${hostPath}'`);
-
-  console.log();
 
   const buildPath = path.resolve(paths.proxyBuild, 'react.js');
 
