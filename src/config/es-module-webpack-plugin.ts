@@ -21,8 +21,8 @@ export class ESModuleEmitter implements Plugin {
 
       const [, main] = mainAsset;
 
-      const rawAsset = main.children[0]._value;
-      main.children[0]._value = rawAsset.replace(
+      const rawAsset = main._source.children[0];
+      main._source.children[0] = rawAsset.replace(
         /module\.exports ?=/,
         'export default '
       );
