@@ -27,14 +27,14 @@ function chooseDefault(
 
 export default class Build extends Command {
   static description = `
-Build a plutt project.
+Build a plutt app.
 
 Make sure that there exists a src/ directory with an index.js.`;
 
   static flags = {
     sourceDirectory: flags.string({
       char: 's',
-      description: 'The source directory for the plutt project.',
+      description: 'Source directory for the plutt app.',
       default: 'src'
     }),
     verbose: flags.boolean({
