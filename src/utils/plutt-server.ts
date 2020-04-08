@@ -56,6 +56,18 @@ async function findFile(fullPath: string): Promise<string | null> {
 
 export const server = (listenDirectory: string) =>
   http.createServer(async (request, response) => {
+    response.setHeader('Access-Control-Allow-Origin', '*');
+
+    if (request.method === 'OPTIONS') {
+      // Send response to OPTIONS requests
+      response.writeHead(204, {
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type',
+        'Access-Control-Max-Age': '3600'
+      });
+      return response.end();
+    }
+
     const safeSuffix = path
       .normalize(request.url || '')
       .replace(/^(\.\.[/\\])+/, '');
@@ -65,7 +77,7 @@ export const server = (listenDirectory: string) =>
     const requestedFile = await findFile(fullPath);
 
     if (requestedFile === null) {
-      response.statusCode = 404;
+      response.writeHead(404);
       return response.end('Version does not exist');
     }
 
