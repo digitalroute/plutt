@@ -61,13 +61,16 @@ export const moduleFileExtensions = [
   'jsx'
 ];
 
+const appPackageJson = require(resolveApp('package.json'));
+const { name } = appPackageJson;
+
 // config after eject: we're in ./config/
 export default {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   pluttPath: resolveApp('.plutt'),
   buildPath: resolveApp('build'),
-  childBuild: resolveApp('build/child'),
+  childBuild: resolveApp(`build/${name}`),
   proxyBuild: resolveApp('build/proxy'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
