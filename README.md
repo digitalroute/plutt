@@ -32,21 +32,22 @@ USAGE
 <!-- commands -->
 * [`plutt build`](#plutt-build)
 * [`plutt help [COMMAND]`](#plutt-help-command)
+* [`plutt serve [DIRECTORY]`](#plutt-serve-directory)
 
 ## `plutt build`
 
-Build a plutt project.
+Build a plutt app.
 
 ```
 USAGE
   $ plutt build
 
 OPTIONS
-  -s, --sourceDirectory=sourceDirectory  [default: src] The source directory for the plutt project.
+  -s, --sourceDirectory=sourceDirectory  [default: src] Source directory for the plutt app.
   -v, --verbose                          Prints extra information. Useful for debuging.
 
 DESCRIPTION
-  Build a plutt project.
+  Build a plutt app.
 
   Make sure that there exists a src/ directory with an index.js.
 ```
@@ -69,4 +70,21 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src/commands/help.ts)_
+
+## `plutt serve [DIRECTORY]`
+
+Serve a plutt app.
+
+```
+USAGE
+  $ plutt serve [DIRECTORY]
+
+ARGUMENTS
+  DIRECTORY  [default: .] Directory to serve plutt apps from
+
+OPTIONS
+  -p, --port=port  [default: 5000] Port used to serve plutt app
+```
+
+_See code: [src/commands/serve.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/serve.ts)_
 <!-- commandsstop -->

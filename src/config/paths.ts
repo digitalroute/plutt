@@ -1,6 +1,5 @@
 import path from 'path';
 import fs from 'fs';
-import url from 'url';
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
@@ -62,14 +61,17 @@ export const moduleFileExtensions = [
   'jsx'
 ];
 
+const appPackageJson = require(resolveApp('package.json'));
+const { name } = appPackageJson;
+
 // config after eject: we're in ./config/
 export default {
   dotenv: resolveApp('.env'),
   appPath: resolveApp('.'),
   pluttPath: resolveApp('.plutt'),
   buildPath: resolveApp('build'),
-  childBuild: resolveApp('build/child'),
-  wrapperBuild: resolveApp('build/wrapper'),
+  childBuild: resolveApp(`build/${name}`),
+  proxyBuild: resolveApp('build/proxy'),
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appTsConfig: resolveApp('tsconfig.json'),
@@ -79,7 +81,7 @@ export default {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   childTemplate: resolveTemplate('child'),
-  wrapperTemplate: resolveTemplate('wrapper'),
+  proxyTemplate: resolveTemplate('proxy'),
   childTemplateIntermediate: resolveTemplateIntermediate('child'),
-  wrapperTemplateIntermediate: resolveTemplateIntermediate('wrapper')
+  proxyTemplateIntermediate: resolveTemplateIntermediate('proxy')
 };
