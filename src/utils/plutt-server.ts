@@ -38,7 +38,8 @@ async function findFile(fullPath: string): Promise<string | null> {
     return fullPath;
   }
 
-  const requestedVersion = '^' + requestedFile.replace(prefix, '');
+  const requestedVersion =
+    '^' + path.basename(requestedFile.replace(prefix, ''), '.js');
 
   const filesInDir = await promisify(fs.readdir)(path.dirname(fullPath));
 
