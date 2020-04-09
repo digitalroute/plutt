@@ -1,5 +1,4 @@
 const React = require('react');
-const ReactDOM = require('react-dom');
 
 class Proxy extends React.Component {
   constructor(props) {
@@ -10,30 +9,33 @@ class Proxy extends React.Component {
 
   componentDidMount() {
     import(/* webpackIgnore: true */ process.env.HOST_PATH).then((mod) => {
-      const { default: mountApp } = mod;
+      const {
+        default: { mount: mountApp, unmount: unmountApp, updateApp }
+      } = mod;
 
       this.shadow = this.props.shadow
         ? this.mountRef.current.attachShadow({ mode: 'open' })
         : this.mountRef.current;
+
       this.mountApp = mountApp;
+      this.unmountApp = unmountApp;
+      this.updateApp = updateApp;
 
       mountApp(this.shadow, this.props);
     });
   }
 
   componentWillUnmount() {
-    if (this.shadow) ReactDOM.unmountComponentAtNode(this.shadow);
+    if (this.shadow) this.unmountApp(this.shadow);
   }
 
   render() {
     if (this.mountApp) {
-      this.mountApp(this.shadow, this.props);
+      this.updateApp(this.shadow, this.props);
     }
 
     return React.createElement('div', { ref: this.mountRef });
   }
 }
-
-Proxy.defaultProps = { shadow: true };
 
 module.exports = Proxy;
