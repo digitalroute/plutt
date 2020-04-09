@@ -9,9 +9,7 @@ class Proxy extends React.Component {
 
   componentDidMount() {
     import(/* webpackIgnore: true */ process.env.HOST_PATH).then((mod) => {
-      const {
-        default: { mount: mountApp, unmount: unmountApp, updateApp }
-      } = mod;
+      const { mount: mountApp, unmount: unmountApp, updateApp } = mod;
 
       this.shadow = this.props.shadow
         ? this.mountRef.current.attachShadow({ mode: 'open' })
