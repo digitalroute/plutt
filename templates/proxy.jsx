@@ -13,7 +13,7 @@ class Proxy extends React.Component {
         default: { mount: mountApp, unmount: unmountApp, update: updateApp }
       } = mod;
 
-      this.shadow = this.props.shadow
+      this.mountElement = this.props.shadow
         ? this.mountRef.current.attachShadow({ mode: 'open' })
         : this.mountRef.current;
 
@@ -21,17 +21,17 @@ class Proxy extends React.Component {
       this.unmountApp = unmountApp;
       this.updateApp = updateApp;
 
-      mountApp(this.shadow, this.props);
+      mountApp(this.mountElement, this.props);
     });
   }
 
   componentWillUnmount() {
-    if (this.shadow) this.unmountApp(this.shadow);
+    if (this.mountElement) this.unmountApp(this.mountElement);
   }
 
   render() {
     if (this.mountApp && this.updateApp) {
-      this.updateApp(this.shadow, this.props);
+      this.updateApp(this.mountElement, this.props);
     }
 
     return React.createElement('div', { ref: this.mountRef });
