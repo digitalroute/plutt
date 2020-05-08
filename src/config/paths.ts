@@ -8,10 +8,13 @@ export const resolveApp = (relativePath: string) =>
   path.resolve(appDirectory, relativePath);
 
 const templateDirectory = path.resolve(__dirname, '..', '..', 'templates');
-function resolveTemplate(template: string) {
+function resolveTemplate(template: string, extensionOverride?: string) {
   const useTypeScript = fs.existsSync(resolveApp('tsconfig.json'));
   const extension = useTypeScript ? '.tsx' : '.jsx';
-  return path.resolve(templateDirectory, template + extension);
+  return path.resolve(
+    templateDirectory,
+    template + extensionOverride || extension
+  );
 }
 
 function resolveTemplateIntermediate(template: string) {
@@ -81,7 +84,8 @@ export default {
   publicUrl: getPublicUrl(resolveApp('package.json')),
   servedPath: getServedPath(resolveApp('package.json')),
   childTemplate: resolveTemplate('child'),
-  proxyTemplate: resolveTemplate('proxy'),
+  proxyReactTemplate: resolveTemplate('proxy-react', '.jsx'),
+  proxyVueTemplate: resolveTemplate('proxy-vue', '.vue'),
   childTemplateIntermediate: resolveTemplateIntermediate('child'),
   proxyTemplateIntermediate: resolveTemplateIntermediate('proxy')
 };
