@@ -30,7 +30,7 @@ class Proxy extends React.Component {
   }
 
   render() {
-    if (this.mountApp && this.updateApp) {
+    if (this.updateApp) {
       this.updateApp(this.mountElement, this.props);
     }
 
