@@ -13,7 +13,7 @@ function resolveTemplate(template: string, extensionOverride?: string) {
   const extension = useTypeScript ? '.tsx' : '.jsx';
   return path.resolve(
     templateDirectory,
-    template + extensionOverride || extension
+    template + (extensionOverride || extension)
   );
 }
 

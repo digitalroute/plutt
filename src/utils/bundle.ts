@@ -1,6 +1,6 @@
 import { remove } from 'fs-extra';
 import bundleChild from './bundle-child';
-import bundleProxy from './bundle-proxy';
+import bundleProxies from './bundle-proxies';
 import paths from '../config/paths';
 
 export default async (sourceDirectory: string) => {
@@ -9,5 +9,5 @@ export default async (sourceDirectory: string) => {
   // 2. Bundle child
   await bundleChild(sourceDirectory);
   // 3. Compile proxy
-  await bundleProxy();
+  await bundleProxies();
 };

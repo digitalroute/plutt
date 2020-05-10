@@ -27,11 +27,13 @@ const Proxy = {
   beforeDestroy: function() {
     if (this.mountElement) this.unmountApp(this.mountElement);
   },
-  updated: function() {
-    if (this.updateApp) {
-      this.updateApp(this.mountElement, this.props);
-    }
-  }
+  watch: {
+    childProps() {
+      if (this.updateApp) {
+        this.updateApp(this.mountElement, this.childProps);
+      }
+    },
+  },
 };
 
 export default Proxy;
