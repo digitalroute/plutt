@@ -52,8 +52,6 @@ DESCRIPTION
   Make sure that there exists a src/ directory with an index.js.
 ```
 
-_See code: [src/commands/build.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/build.ts)_
-
 ## `plutt help [COMMAND]`
 
 display help for plutt
@@ -85,6 +83,4 @@ ARGUMENTS
 OPTIONS
   -p, --port=port  [default: 5000] Port used to serve plutt app
 ```
-
-_See code: [src/commands/serve.ts](https://github.com/digitalroute/plutt/blob/v0.0.0-semantically-released/src/commands/serve.ts)_
 <!-- commandsstop -->
