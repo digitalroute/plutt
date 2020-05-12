@@ -27,6 +27,8 @@ export class Serve extends Command {
       flags: { port }
     } = this.parse(Serve);
 
-    server(listenDirectory).listen(port);
+    server(listenDirectory).listen(port, () => {
+      console.log(`Server running at port: ${port}`);
+    });
   }
 }

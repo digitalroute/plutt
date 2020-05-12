@@ -11,7 +11,7 @@ export default async (sourceDirectory: string): Promise<void> => {
   const { name, version } = appPackageJson;
   const fileName = `${name}.v${version}.js`;
 
-  // // 3. Compile with webpack
+  // 3. Compile with webpack
   await compiler(
     true,
     paths.childTemplateIntermediate,

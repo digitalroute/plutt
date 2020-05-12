@@ -1,4 +1,4 @@
-import http from 'http';
+import http, { Server } from 'http';
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
@@ -38,7 +38,8 @@ async function findFile(fullPath: string): Promise<string | null> {
     return fullPath;
   }
 
-  const requestedVersion = '^' + requestedFile.replace(prefix, '');
+  const requestedVersion =
+    '^' + path.basename(requestedFile.replace(prefix, ''), '.js');
 
   const filesInDir = await promisify(fs.readdir)(path.dirname(fullPath));
 
@@ -54,7 +55,7 @@ async function findFile(fullPath: string): Promise<string | null> {
     : `${path.dirname(fullPath)}/${prefix}${bestVersion}.js`;
 }
 
-export const server = (listenDirectory: string) =>
+export const server = (listenDirectory: string): Server =>
   http.createServer(async (request, response) => {
     response.setHeader('Access-Control-Allow-Origin', '*');
 
