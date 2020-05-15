@@ -21,12 +21,7 @@ export default async (sourceDirectory: string) => {
   const useTypeScript = fs.existsSync(paths.appTsConfig);
 
   if (useTypeScript) {
-    const tscCliPath = path.resolve(
-      process.cwd(),
-      'node_modules',
-      '.bin',
-      'tsc'
-    );
+    const tscCliPath = path.resolve(paths.node_modules, '.bin', 'tsc');
 
     const execPromise = promisify(exec);
     await execPromise(`${tscCliPath} --emitDeclarationOnly --declaration`);

@@ -35,8 +35,7 @@ const bundleVueProxy = async (hostPath: string) => {
   const execPromise = promisify(exec);
 
   const vueCliPath = path.resolve(
-    process.cwd(),
-    'node_modules',
+    paths.node_modules,
     '.bin',
     'vue-cli-service'
   );

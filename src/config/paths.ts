@@ -87,5 +87,7 @@ export default {
   proxyReactTemplate: resolveTemplate('proxy-react', '.jsx'),
   proxyVueTemplate: resolveTemplate('proxy-vue', '.vue'),
   childTemplateIntermediate: resolveTemplateIntermediate('child'),
-  proxyTemplateIntermediate: resolveTemplateIntermediate('proxy')
+  proxyTemplateIntermediate: resolveTemplateIntermediate('proxy'),
+  node_modules:
+    process.env.NODE_MODULES_DIR || path.resolve(process.cwd(), 'node_modules')
 };
