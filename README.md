@@ -129,3 +129,5 @@ OPTIONS
 <!-- commandsstop -->
 
 # 🐢 Learn More
+
+This project is developed together with a thesis, that will finish this summer. When the thesis is published a link to the thesis will be available here to learn more about Plutt.
