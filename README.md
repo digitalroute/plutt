@@ -48,7 +48,7 @@ USAGE
 
 # 📚 Examples
 
-All examples are collected at [Plutt Examples Collection](https://github.com/juliuscc/plutt-examples-collection).
+All examples are located at [Plutt Examples Collection](https://github.com/juliuscc/plutt-examples-collection).
 
 # 🔍 How Plutt Works
 
