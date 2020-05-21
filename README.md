@@ -11,11 +11,11 @@ Plutt: Safe micro frontends without the hassle
 
 <!-- toc -->
 * [🗒 Description](#-description)
-* [✨Features](#features)
-* [🏗Usage](#usage)
+* [✨ Features](#-features)
+* [🏗 Usage](#-usage)
 * [📚 Examples](#-examples)
 * [🔍 How Plutt Works](#-how-plutt-works)
-* [🔨Commands](#commands)
+* [🔨 Commands](#-commands)
 * [🐢 Learn More](#-learn-more)
 <!-- tocstop -->
 
@@ -23,14 +23,14 @@ Plutt: Safe micro frontends without the hassle
 
 Plutt is a build tool that enables developers to generate micro frontends from framework-native components and to serve them version safely. The micro frontends are automatically safe to use in production if they work during development.
 
-# ✨Features
+# ✨ Features
 
 - **Access transparency:** Consuming applications use the micro frontends as regular components, without having to know that it is a micro frontend.
 - **Automatic Version Safety:** At run-time Plutt will always upgrade to the latest version of a micro frontend, as long as it is non-breaking. This is done by supporting lock-step deployments.
 - **Framework Agnostic:** Plutt applications can be consumed by any framework. Currently Plutt supports React and Vue, but it is easy to extend Plutt to support more frameworks.
 - **Type Safety:** Micro frontends can be consumed with type safety. Any props that are used incorrectly can be found at compile-time.
 
-# 🏗Usage
+# 🏗 Usage
 
 <!-- usage -->
 ```sh-session
@@ -70,7 +70,7 @@ A proxy is a framework-native component that knows how to fetch and mount a corr
 
 Plutt applications are stored on a Plutt server, which is where dependents fetch Plutt applications from. Plutt server upgrade requests to Plutt applications so that dependents receive the latest non-breaking version. Semantic versioning is used to ensure that the upgraded version is non-breaking. This way, the team that provides a micro frontend is responsible for deciding when to update to production, while ensuring that updates do not break dependent applications. Dependent teams own the decision of when to upgrade breaking versions. Plutt server provides every team with the correct responsibilities that facilitate independent deployments.
 
-# 🔨Commands
+# 🔨 Commands
 
 <!-- commands -->
 * [`plutt build`](#plutt-build)
