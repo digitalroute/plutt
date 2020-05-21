@@ -1,13 +1,15 @@
 <img src="images/logo.png" title="Plutt" alt="Plutt logo" width="530">
 
-# Plutt: Safe micro frontends without the hassle
+<!-- prettier-ignore-start -->
+Plutt: Safe micro frontends without the hassle
+==============================================
+<!-- prettier-ignore-end -->
 
 [![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
 [![Downloads/week](https://img.shields.io/npm/dw/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
-* [Plutt: Safe micro frontends without the hassle](#plutt-safe-micro-frontends-without-the-hassle)
 * [🗒 Description](#-description)
 * [✨Features](#features)
 * [🏗Usage](#usage)
