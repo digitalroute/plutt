@@ -13,12 +13,15 @@ Plutt: Safe micro frontends without the hassle
 * [🗒 Description](#-description)
 * [✨Features](#features)
 * [🏗Usage](#usage)
+* [📚 Examples](#-examples)
+* [🔍 How Plutt Works](#-how-plutt-works)
 * [🔨Commands](#commands)
+* [🐢 Learn More](#-learn-more)
 <!-- tocstop -->
 
 # 🗒 Description
 
-Plutt is a build tool that enables developers to generate micro frontends from framework native components and to serve them version safely. The micro frontends are automatically safe to use in production if they work during development.
+Plutt is a build tool that enables developers to generate micro frontends from framework-native components and to serve them version safely. The micro frontends are automatically safe to use in production if they work during development.
 
 # ✨Features
 
@@ -42,6 +45,30 @@ USAGE
 ...
 ```
 <!-- usagestop -->
+
+# 📚 Examples
+
+All examples are collected at [Plutt Examples Collection](https://github.com/juliuscc/plutt-examples-collection).
+
+# 🔍 How Plutt Works
+
+Plutt is a build tool that enables developers to generate micro frontends from framework-native components and to serve them version safely. Plutt takes a framework-native component as input and outputs two types of artifacts: a _Plutt Application_ (composed of the original Component and a _Wrapper_) and a _Proxy_. To serve Plutt applications, Plutt provides a _Plutt Server_.
+
+You can use only a Plutt Application, but to get most benefits you should use the provided Proxy and Plutt Server.
+
+![Plutt Architecture](images/plutt-architecture.png)
+
+## Plutt Application
+
+A Plutt application is a self-contained micro frontend application that exposes functions for mounting with properties, updating the properties, and unmounting. Plutt applications are stored on a Plutt server and accessed in run-time, to ensure that the latest version is consumed.
+
+## Proxy
+
+A proxy is a framework-native component that knows how to fetch and mount a corresponding Plutt application. Plutt generates one proxy per supported framework, which currently is React and Vue. Proxies integrate into a parent application during compile-time. Proxies do not include any business logic, but they do include everything required to safely consume a Plutt application. Proxies fetch a specific version of a Plutt application which can be verified at compile-time to be non-breaking. If the Plutt application is typed, the proxy is also typed, and static analysis can be used to indicate if a Plutt application is integrated correctly.
+
+## Plutt Server
+
+Plutt applications are stored on a Plutt server, which is where dependents fetch Plutt applications from. Plutt server upgrade requests to Plutt applications so that dependents receive the latest non-breaking version. Semantic versioning is used to ensure that the upgraded version is non-breaking. This way, the team that provides a micro frontend is responsible for deciding when to update to production, while ensuring that updates do not break dependent applications. Dependent teams own the decision of when to upgrade breaking versions. Plutt server provides every team with the correct responsibilities that facilitate independent deployments.
 
 # 🔨Commands
 
@@ -101,4 +128,4 @@ OPTIONS
 ```
 <!-- commandsstop -->
 
-## How does it work?
+# 🐢 Learn More
