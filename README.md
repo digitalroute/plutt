@@ -1,17 +1,25 @@
-# Plutt
+# <img src="images/logo.png" title="Plutt" alt="Plutt logo" width="530">
 
-[![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
 [![Downloads/week](https://img.shields.io/npm/dw/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
 [![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
+Plutt is a build tool that enables developers to generate micro frontends from framework native components and to serve them version safely. The micro frontends are automatically safe to use in production if they work during development.
+
+## Features
+
+- **Access transparency:** Consuming applications use the micro frontends as regular components, without having to know that it is a micro frontend.
+- **Automatic Version Safety:** At run-time Plutt will always upgrade to the latest version of a micro frontend, as long as it is non-breaking. This is done by supporting lock-step deployments.
+- **Framework Agnostic:** Plutt applications can be consumed by any framework. Currently Plutt supports React and Vue, but it is easy to extend Plutt to support more frameworks.
+- **Type Safety:** Micro frontends can be consumed with type safety. Any props that are used incorrectly can be found at compile-time.
+
+## Table of Contents
+
 <!-- toc -->
-* [Plutt](#plutt)
-* [Usage](#usage)
-* [Commands](#commands)
+* [<img src="images/logo.png" title="Plutt" alt="Plutt logo" width="530">](#img-srcimageslogopng-titleplutt-altplutt-logo-width530)
 <!-- tocstop -->
 
-# Usage
+## Usage
 
 <!-- usage -->
 ```sh-session
@@ -27,7 +35,7 @@ USAGE
 ```
 <!-- usagestop -->
 
-# Commands
+## Commands
 
 <!-- commands -->
 * [`plutt build`](#plutt-build)
@@ -84,3 +92,5 @@ OPTIONS
   -p, --port=port  [default: 5000] Port used to serve plutt app
 ```
 <!-- commandsstop -->
+
+## How does it work?

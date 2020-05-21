@@ -101,7 +101,7 @@
   "keywords": [
     "oclif"
   ],
-  "license": "UNLICENSED",
+  "license": "Apache License 2.0",
   "main": "lib/index.js",
   "oclif": {
     "commands": "./lib/commands",
