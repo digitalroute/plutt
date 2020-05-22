@@ -7,9 +7,9 @@ Plutt: Safe micro frontends without the hassle
 ==============================================
 <!-- prettier-ignore-end -->
 
-[![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
-[![Downloads/week](https://img.shields.io/npm/dw/@digitalroute/plutt.svg)](https://npmjs.org/package/@digitalroute/plutt)
-[![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg)](https://github.com/digitalroute/plutt/blob/master/package.json)
+[![Version](https://img.shields.io/npm/v/@digitalroute/plutt.svg?style=flat-square)](https://npmjs.org/package/@digitalroute/plutt)
+[![Downloads/week](https://img.shields.io/npm/dw/@digitalroute/plutt.svg?style=flat-square)](https://npmjs.org/package/@digitalroute/plutt)
+[![License](https://img.shields.io/npm/l/@digitalroute/plutt.svg?style=flat-square)](https://github.com/digitalroute/plutt/blob/master/package.json)
 
 <!-- toc -->
 * [🗒 Description](#-description)
