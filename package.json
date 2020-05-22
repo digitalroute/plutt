@@ -98,8 +98,18 @@
     "/templates"
   ],
   "homepage": "https://github.com/digitalroute/plutt",
+  "description": "Safe micro frontends without the hassle",
   "keywords": [
-    "oclif"
+    "plutt",
+    "micro frontends",
+    "micro-frontends",
+    "microfrontends",
+    "microservices frontend",
+    "react",
+    "vue",
+    "typescript",
+    "plutt server",
+    "proxy"
   ],
   "license": "Apache-2.0",
   "main": "lib/index.js",
