@@ -1,4 +1,6 @@
-<img src="images/logo.png" title="Plutt" alt="Plutt logo" width="530">
+<p align="center">
+  <img src="images/logo.png" title="Plutt" alt="Plutt logo" width="530">
+</p>
 
 <!-- prettier-ignore-start -->
 Plutt: Safe micro frontends without the hassle
