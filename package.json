@@ -1,7 +1,7 @@
 {
   "name": "@digitalroute/plutt",
   "version": "0.0.0-semantically-released",
-  "author": "Julius Celik",
+  "author": "Julius Recep Colliander Celik",
   "bin": {
     "plutt": "./bin/run"
   },
