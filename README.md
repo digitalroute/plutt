@@ -3,7 +3,7 @@
 </p>
 
 <!-- prettier-ignore-start -->
-Plutt: Safe micro frontends without the hassle
+Plutt: Safe microfrontends without the hassle
 ==============================================
 <!-- prettier-ignore-end -->
 
@@ -23,14 +23,14 @@ Plutt: Safe micro frontends without the hassle
 
 # 🗒 Description
 
-Plutt is a build tool that enables developers to generate micro frontends from framework-native components and to serve them version safely. The micro frontends are automatically safe to use in production if they work during development.
+Plutt is a build tool that enables developers to generate microfrontends from framework-native components and to serve them version safely. The microfrontends are automatically safe to use in production if they work during development.
 
 # ✨ Features
 
-- **Access transparency:** Consuming applications use the micro frontends as regular components, without having to know that it is a micro frontend.
-- **Automatic Version Safety:** At run-time Plutt will always upgrade to the latest version of a micro frontend, as long as it is non-breaking. This is done by supporting lock-step deployments.
+- **Access transparency:** Consuming applications use the microfrontends as regular components, without having to know that it is a microfrontend.
+- **Automatic Version Safety:** At run-time Plutt will always upgrade to the latest version of a microfrontend, as long as it is non-breaking. This is done by supporting lock-step deployments.
 - **Framework Agnostic:** Plutt applications can be consumed by any framework. Currently Plutt supports React and Vue, but it is easy to extend Plutt to support more frameworks.
-- **Type Safety:** Micro frontends can be consumed with type safety. Any props that are used incorrectly can be found at compile-time.
+- **Type Safety:** Microfrontends can be consumed with type safety. Any props that are used incorrectly can be found at compile-time.
 
 # 🏗 Usage
 
@@ -54,7 +54,7 @@ All examples are located at [Plutt Examples Collection](https://github.com/juliu
 
 # 🔍 How Plutt Works
 
-Plutt is a build tool that enables developers to generate micro frontends from framework-native components and to serve them version safely. Plutt takes a framework-native component as input and outputs two types of artifacts: a _Plutt Application_ (composed of the original Component and a _Wrapper_) and a _Proxy_. To serve Plutt applications, Plutt provides a _Plutt Server_.
+Plutt is a build tool that enables developers to generate microfrontends from framework-native components and to serve them version safely. Plutt takes a framework-native component as input and outputs two types of artifacts: a _Plutt Application_ (composed of the original Component and a _Wrapper_) and a _Proxy_. To serve Plutt applications, Plutt provides a _Plutt Server_.
 
 You can use only a Plutt Application, but to get most benefits you should use the provided Proxy and Plutt Server.
 
@@ -62,7 +62,7 @@ You can use only a Plutt Application, but to get most benefits you should use th
 
 ## Plutt Application
 
-A Plutt application is a self-contained micro frontend application that exposes functions for mounting with properties, updating the properties, and unmounting. Plutt applications are stored on a Plutt server and accessed in run-time, to ensure that the latest version is consumed.
+A Plutt application is a self-contained microfrontend application that exposes functions for mounting with properties, updating the properties, and unmounting. Plutt applications are stored on a Plutt server and accessed in run-time, to ensure that the latest version is consumed.
 
 ## Proxy
 
@@ -70,7 +70,7 @@ A proxy is a framework-native component that knows how to fetch and mount a corr
 
 ## Plutt Server
 
-Plutt applications are stored on a Plutt server, which is where dependents fetch Plutt applications from. Plutt server upgrade requests to Plutt applications so that dependents receive the latest non-breaking version. Semantic versioning is used to ensure that the upgraded version is non-breaking. This way, the team that provides a micro frontend is responsible for deciding when to update to production, while ensuring that updates do not break dependent applications. Dependent teams own the decision of when to upgrade breaking versions. Plutt server provides every team with the correct responsibilities that facilitate independent deployments.
+Plutt applications are stored on a Plutt server, which is where dependents fetch Plutt applications from. Plutt server upgrade requests to Plutt applications so that dependents receive the latest non-breaking version. Semantic versioning is used to ensure that the upgraded version is non-breaking. This way, the team that provides a microfrontend is responsible for deciding when to update to production, while ensuring that updates do not break dependent applications. Dependent teams own the decision of when to upgrade breaking versions. Plutt server provides every team with the correct responsibilities that facilitate independent deployments.
 
 # 🔨 Commands
 
@@ -132,4 +132,4 @@ OPTIONS
 
 # 🐢 Learn More
 
-This project is developed together with a thesis, that will finish this summer. When the thesis is published a link to the thesis will be available here to learn more about Plutt.
+This project is developed together with a thesis, that will finish this summer. A link to the thesis will be published here when the thesis is finished.
