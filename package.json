@@ -18,7 +18,7 @@
     "@types/mkdirp": "^1.0.0",
     "@types/react-dev-utils": "^9.0.3",
     "@types/semver": "^7.1.0",
-    "@vue/cli-service": "^4.3.1",
+    "@vue/cli-service": "^5.0.8",
     "babel-loader": "^8.0.6",
     "babel-plugin-named-asset-import": "^0.3.6",
     "babel-plugin-transform-commonjs-es2015-modules": "^4.0.1",
